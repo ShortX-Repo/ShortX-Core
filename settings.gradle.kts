@@ -23,6 +23,7 @@ pluginManagement {
 
 include(":app")
 include(":core")
+include(":ui-base")
 include(":external:utils")
 include(":external:dateformatter")
 include(":external:reorderable")

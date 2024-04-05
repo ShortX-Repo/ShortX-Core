@@ -1,3 +1,4 @@
+import tornaco.project.android.shortx.Configs.latestGitTag
 import java.io.FileInputStream
 import java.util.Properties
 
@@ -12,15 +13,10 @@ dependencies {
 
 
 val GROUP_ID = "shortx"
-val ARTIFACT_ID = "external-utils"
+val ARTIFACT_ID = project.path.removePrefix(":").replace(":", "-")
 val VERSION = latestGitTag().ifEmpty { "1.0.0" }
 
-fun latestGitTag(): String {
-    val process = ProcessBuilder("git", "describe", "--tags", "--abbrev=0").start()
-    return process.inputStream.bufferedReader().use { bufferedReader ->
-        bufferedReader.readText().trim()
-    }
-}
+println("ARTIFACT_ID: $ARTIFACT_ID")
 
 val githubProperties = Properties()
 githubProperties.load(FileInputStream(rootProject.file("github.properties")))

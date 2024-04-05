@@ -3,7 +3,6 @@ package tornaco.project.android.shortx
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import tornaco.project.android.shortx.Configs.sxIsDebugBuild
-import java.io.File
 import java.util.Properties
 
 private val props = Properties()
@@ -41,6 +40,13 @@ object Configs {
 
     fun Project.keyStorePassword(): String {
         return Configs["keyPassword"] ?: this.findProperty("keyPassword")?.toString() ?: ""
+    }
+
+    fun latestGitTag(): String {
+        val process = ProcessBuilder("git", "describe", "--tags", "--abbrev=0").start()
+        return process.inputStream.bufferedReader().use { bufferedReader ->
+            bufferedReader.readText().trim()
+        }
     }
 }
 

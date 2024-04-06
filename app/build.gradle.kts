@@ -11,7 +11,7 @@ plugins {
 }
 
 android {
-    namespace = Configs.sxPackageName
+    namespace = "${Configs.sxPackageName}.core.demo"
 
     buildTypes {
         getByName("release") {
@@ -63,7 +63,8 @@ android {
 
 dependencies {
     implementation(project(":core"))
-    
+    implementation(project(":ui-base"))
+
     implementation(libs.dagger.hilt.android)
     implementation(libs.dagger.hilt.navigation.compose)
     kapt(libs.dagger.hilt.android.compiler)

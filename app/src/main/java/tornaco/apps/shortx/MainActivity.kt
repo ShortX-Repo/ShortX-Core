@@ -6,9 +6,9 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
 import tornaco.apps.shortx.core.shortXManager
+import tornaco.apps.shortx.ui.base.ListItem
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,7 +16,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             Scaffold {
                 Column(modifier = Modifier.padding(it)) {
-                    Text(text = "ShortX: ${shortXManager.version()}")
+                    ListItem(title = "ShortX: ${shortXManager.version()}")
                 }
             }
         }

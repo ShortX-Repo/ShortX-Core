@@ -39,6 +39,10 @@ dependencies {
     implementation(libs.dagger.hilt.navigation.compose)
     kapt(libs.dagger.hilt.android.compiler)
 
+    implementation(libs.glide.landscapist)
+    implementation(libs.glide)
+    kapt(libs.glide.compiler)
+
     implementation(platform(libs.compose.bom))
     implementation(libs.compose.ui)
     implementation(libs.compose.ui.tooling.preview)

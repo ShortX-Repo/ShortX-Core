@@ -1,7 +1,7 @@
 package tornaco.apps.shortx.core.util
 
 import android.util.Log
-import tornaco.apps.shortx.core.onDebugBuild
+import tornaco.apps.shortx.core.BuildPropExt.onDebugBuild
 
 class Logger(private val tag: String = "-") {
     private val fullTag get() = tag

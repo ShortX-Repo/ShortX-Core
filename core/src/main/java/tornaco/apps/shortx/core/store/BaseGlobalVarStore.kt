@@ -7,7 +7,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
-import tornaco.apps.shortx.core.onDebugBuild
+import tornaco.apps.shortx.core.BuildPropExt.onDebugBuild
 import tornaco.apps.shortx.core.proto.gv.GlobalVar
 import tornaco.apps.shortx.core.proto.gv.GlobalVarList
 import tornaco.apps.shortx.core.rule.setValue

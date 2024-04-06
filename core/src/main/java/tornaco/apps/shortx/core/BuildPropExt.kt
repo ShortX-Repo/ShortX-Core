@@ -1,13 +1,17 @@
 package tornaco.apps.shortx.core
 
-inline fun onDebugBuild(action: () -> Unit) {
-    if (BuildProp.APP_IS_DEBUG) {
-        action()
-    }
-}
+object BuildPropExt {
+    var isDebug = false
 
-inline fun onReleaseBuild(action: () -> Unit) {
-    if (!BuildProp.APP_IS_DEBUG) {
-        action()
+    inline fun onDebugBuild(action: () -> Unit) {
+        if (isDebug) {
+            action()
+        }
+    }
+
+    inline fun onReleaseBuild(action: () -> Unit) {
+        if (isDebug) {
+            action()
+        }
     }
 }

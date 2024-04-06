@@ -26,7 +26,6 @@ import java.util.List;
 
 import okhttp3.Cookie;
 import okhttp3.HttpUrl;
-import tornaco.apps.shortx.core.BuildProp;
 import tornaco.apps.shortx.core.http.persistentcookiejar.cache.CookieCache;
 import tornaco.apps.shortx.core.http.persistentcookiejar.persistence.CookiePersistor;
 import tornaco.apps.shortx.core.util.Logger;
@@ -48,9 +47,7 @@ public class PersistentCookieJar implements ClearableCookieJar {
     synchronized public void saveFromResponse(@NonNull HttpUrl url, @NonNull List<Cookie> cookies) {
         cache.addAll(cookies);
         persistor.saveAll(filterPersistentCookies(cookies));
-        if (BuildProp.APP_IS_DEBUG) {
-            LOGGER.d("saveFromResponse: " + url + " --> " + Arrays.toString(cookies.toArray()));
-        }
+        LOGGER.p("saveFromResponse: " + url + " --> " + Arrays.toString(cookies.toArray()));
     }
 
     private static List<Cookie> filterPersistentCookies(List<Cookie> cookies) {
@@ -84,9 +81,7 @@ public class PersistentCookieJar implements ClearableCookieJar {
 
         persistor.removeAll(cookiesToRemove);
 
-        if (BuildProp.APP_IS_DEBUG) {
-            LOGGER.d("loadForRequest: " + url + " --> " + Arrays.toString(validCookies.toArray()));
-        }
+        LOGGER.p("loadForRequest: " + url + " --> " + Arrays.toString(validCookies.toArray()));
         return validCookies;
     }
 

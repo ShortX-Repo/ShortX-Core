@@ -28,13 +28,17 @@ package tornaco.apps.shortx.ui.base.webview
 
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
-import android.webkit.*
+import android.webkit.CookieManager
+import android.webkit.WebChromeClient
+import android.webkit.WebResourceError
+import android.webkit.WebResourceRequest
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import androidx.lifecycle.ViewModel
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import tornaco.apps.shortx.core.BuildProp
 import tornaco.apps.shortx.core.util.Logger
 import java.lang.ref.WeakReference
 import javax.inject.Inject
@@ -77,9 +81,7 @@ class WebViewViewModel @Inject constructor() : ViewModel() {
     fun initWebView(webView: WebView) {
         logger.e("initWebView")
 
-        if (BuildProp.APP_IS_DEBUG) {
-            WebView.setWebContentsDebuggingEnabled(true)
-        }
+        WebView.setWebContentsDebuggingEnabled(false)
 
         this._webView = WeakReference(webView)
 

@@ -77,6 +77,8 @@ dependencies {
     implementation(libs.compose.material3)
     implementation(libs.compose.material)
 
+    implementation(libs.hiddenapibypass)
+
     testImplementation(libs.junit)
     testImplementation(libs.mockk)
     testImplementation(libs.kotest.assertions.core)

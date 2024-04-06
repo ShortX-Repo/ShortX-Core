@@ -75,6 +75,7 @@ dependencies {
 
     implementation(project(":core"))
     implementation(project(":external:icons"))
+    implementation(project(":external:dateformatter"))
 }
 
 

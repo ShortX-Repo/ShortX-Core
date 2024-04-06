@@ -51,8 +51,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import tornaco.apps.shortx.core.BuildProp;
-
 /**
  * Creates dynamic proxies of concrete classes.
  *
@@ -134,7 +132,7 @@ public final class ProxyBuilder<T> {
     public static final long VERSION =
             // System update
             // ShortX update
-            BuildProp.APP_VERSION_CODE + Build.FINGERPRINT.hashCode();
+            1 + Build.FINGERPRINT.hashCode();
 
     private static final String FIELD_NAME_HANDLER = "$__handler";
     private static final String FIELD_NAME_METHODS = "$__methodArray";

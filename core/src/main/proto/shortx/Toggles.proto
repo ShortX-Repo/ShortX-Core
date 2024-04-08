@@ -27,7 +27,7 @@ message Toggle {
 
   // Put some extras for ext
   // Currently extras:
-  // 1. Subscribe token, key app package name
+  // 1. VT-PKG
   repeated StringPair extras = 9;
 
   string toggleSetId = 10;

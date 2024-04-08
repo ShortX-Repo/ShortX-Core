@@ -52,7 +52,7 @@ message Rule {
   ConflictStrategy conflictPolicy = 18;
   // Put some extras for ext
   // Currently extras:
-  // 1. Subscribe token, key app package name
+  // 1. VT-PKG
   repeated StringPair extras = 19;
 
   string ruleSetId = 20;

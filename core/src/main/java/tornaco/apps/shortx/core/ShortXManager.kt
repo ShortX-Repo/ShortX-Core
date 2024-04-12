@@ -1196,6 +1196,7 @@ class ShortXManager(val service: IShortX) {
         }
     }
 
+    @Deprecated("Moved to ShortX.Ext")
     fun installApk(
         packageName: String,
         fd: ParcelFileDescriptor,

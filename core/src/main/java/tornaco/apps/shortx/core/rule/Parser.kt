@@ -6,6 +6,7 @@ import tornaco.apps.shortx.core.proto.rule.Rule
 import tornaco.apps.shortx.core.proto.rule.RuleList
 import tornaco.apps.shortx.core.proto.rule.RuleSet
 import tornaco.apps.shortx.core.proto.toProto
+import tornaco.apps.shortx.core.proto.toggles.Toggle
 import tornaco.apps.shortx.core.util.Logger
 
 private val logger = Logger("Parser")
@@ -36,6 +37,19 @@ fun parseShareContentRule(content: String): Rule? {
             .setIsEnabled(false).build()
     }.getOrElse {
         logger.e(it, "parseShareContentRule")
+        null
+    }
+}
+
+fun parseShareContentToggle(content: String): Toggle? {
+    return runCatching {
+        Toggle.newBuilder(
+            Toggle.parseFrom(Toggle.newBuilder().toProto(content).toByteArray())?.apply {
+                requireNotNull(this.id) { "Id is null. invalid Toggle?" }
+                requireNotNull(this.title) { "Title is null. invalid Toggle?" }
+            }).build()
+    }.getOrElse {
+        logger.e(it, "parseShareContentToggle")
         null
     }
 }

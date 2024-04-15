@@ -46,6 +46,7 @@ import tornaco.apps.shortx.core.proto.action.LaunchAppByPkg
 import tornaco.apps.shortx.core.proto.action.LockDeviceNow
 import tornaco.apps.shortx.core.proto.action.MapNav
 import tornaco.apps.shortx.core.proto.action.MapQueryBus
+import tornaco.apps.shortx.core.proto.action.MatchRegex
 import tornaco.apps.shortx.core.proto.action.MediaPlayback
 import tornaco.apps.shortx.core.proto.action.NoAction
 import tornaco.apps.shortx.core.proto.action.PerformContextMenuAction
@@ -1688,6 +1689,19 @@ fun Action.toProtoAction(overrideId: String? = null, overrideNote: String? = nul
                 .setActionOnError(actionOnError)
                 .setCustomContextDataKey(contextData.toCustomContextDataKey())
                 .setNote(overrideNote ?: note)
+                .build()
+        }
+
+        is Action.MatchRegex -> {
+            MatchRegex.newBuilder()
+                .setId(overrideId ?: id)
+                .setIsDisabled(!isEnabled)
+                .setActionOnError(actionOnError)
+                .setCustomContextDataKey(contextData.toCustomContextDataKey())
+                .setNote(overrideNote ?: note)
+                .setString(string)
+                .setRegex(regex)
+                .setMatchOptions(matchOptions)
                 .build()
         }
 

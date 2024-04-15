@@ -140,5 +140,6 @@ val allActionClasses = listOf(
     Action.DownloadFile::class,
     Action.SendSMS::class,
     Action.StopAllActions::class,
+    Action.MatchRegex::class,
     Action.NoAction::class,
 )

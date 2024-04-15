@@ -1541,3 +1541,15 @@ message StopAllActions {
   string note = 99;
   string id = 100;
 }
+
+message MatchRegex {
+  string string = 1;
+  string regex = 2;
+  RegexMatchOptions matchOptions = 3;
+
+  CustomContextDataKey customContextDataKey = 96;
+  ActionOnError actionOnError = 97;
+  bool isDisabled = 98;
+  string note = 99;
+  string id = 100;
+}

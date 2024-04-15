@@ -275,4 +275,10 @@ object ContextDataMapping {
         downloadFileUri("Uri of the file is it is successful"),
         downloadFilePath("Path of the file is it is successful"),
     }
+
+    @DoNotStrip
+    enum class MatchRegex(val description: String) {
+        isMatch("Indicates whether the regular expression matches the input"),
+        matchResult("Returns a sequence of all occurrences of a regular expression within the input string"),
+    }
 }

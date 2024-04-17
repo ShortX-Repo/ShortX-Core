@@ -12,6 +12,7 @@ import tornaco.apps.shortx.core.proto.gv.GlobalVarList
 import tornaco.apps.shortx.core.proto.pkgset.PkgSet
 import tornaco.apps.shortx.core.proto.rule.Rule
 import tornaco.apps.shortx.core.proto.settings.DanmuUISettings
+import tornaco.apps.shortx.core.proto.toggles.Toggle
 import tornaco.apps.shortx.core.util.Logger
 
 private val logger = Logger("JsonConverter")
@@ -26,6 +27,7 @@ private val typeRegistry = JsonFormat.TypeRegistry.newBuilder()
     .add(GlobalVarList.getDescriptor())
     .add(PkgSet.getDescriptor())
     .add(DanmuUISettings.getDescriptor())
+    .add(Toggle.getDescriptor())
     .build()
 
 private val parser by lazy {
@@ -41,7 +43,7 @@ fun MessageOrBuilder.toJson(): String {
         printer.print(this)
     }.getOrElse {
         logger.e(it, "toJson")
-        "{}"
+        "{ERROR to json!}"
     }
 }
 

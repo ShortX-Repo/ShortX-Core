@@ -85,6 +85,12 @@ dependencies {
     api(libs.logging.interceptor)
 
     implementation(project(":external:utils"))
+
+    testImplementation(libs.junit)
+    testImplementation(libs.kotest.assertions.core)
+    testImplementation(libs.kotest.property)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.mockk)
 }
 
 addAidlTask()

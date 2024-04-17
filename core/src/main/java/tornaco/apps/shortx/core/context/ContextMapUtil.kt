@@ -14,7 +14,24 @@ object ContextMapUtil {
 
         var stringRes = this
         contextData.forEach {
-            stringRes = stringRes.replace("{${it.key}}", it.value.contextDataValueToString())
+            val value = it.value
+            // Support index, e.g. {list}[0]
+            if (value is List<*>) {
+                value.forEachIndexed { index, listItem ->
+                    // {list}[0]
+                    stringRes = stringRes.replace(
+                        "{${it.key}}[$index]",
+                        listItem.contextDataValueToString()
+                    )
+                    // {list}.get(0)
+                    stringRes = stringRes.replace(
+                        "{${it.key}}.get($index)",
+                        listItem.contextDataValueToString()
+                    )
+                }
+            }
+
+            stringRes = stringRes.replace("{${it.key}}", value.contextDataValueToString())
         }
         return stringRes
     }

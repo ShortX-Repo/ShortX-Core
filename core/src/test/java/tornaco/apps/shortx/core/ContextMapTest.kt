@@ -43,6 +43,14 @@ class ContextMapTest {
     }
 
     @Test
+    fun testInflateMapIndexed() {
+        "{list}[0]".inflateContextMap(mapOf("list" to listOf("A", "B"))) shouldBe "A"
+        "{list}[0]-{list}[1]".inflateContextMap(mapOf("list" to listOf("A", "B"))) shouldBe "A-B"
+        "{list}.get(0)-{list}[1]".inflateContextMap(mapOf("list" to listOf("A", "B"))) shouldBe "A-B"
+        // TODO handle case: "{list}.get(2)-{list}[1]".inflateContextMap(mapOf("list" to listOf("A", "B"))) shouldBe "A-B"
+    }
+
+    @Test
     fun testAllKeys() {
         fun getEnumValues(enumClass: KClass<out Enum<*>>): Array<out Enum<*>> =
             enumClass.java.enumConstants

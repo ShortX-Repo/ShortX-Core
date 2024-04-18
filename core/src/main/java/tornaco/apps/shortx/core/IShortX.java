@@ -68,7 +68,7 @@ public interface IShortX extends android.os.IInterface
     {
       return null;
     }
-    @Override public void showEdgeHint(int edgeNumber) throws android.os.RemoteException
+    @Override public void showEdgeHint(int[] edgeNumber) throws android.os.RemoteException
     {
     }
     // Direct Actions start
@@ -857,8 +857,8 @@ public interface IShortX extends android.os.IInterface
         }
         case TRANSACTION_showEdgeHint:
         {
-          int _arg0;
-          _arg0 = data.readInt();
+          int[] _arg0;
+          _arg0 = data.createIntArray();
           this.showEdgeHint(_arg0);
           reply.writeNoException();
           break;
@@ -2541,13 +2541,13 @@ public interface IShortX extends android.os.IInterface
         }
         return _result;
       }
-      @Override public void showEdgeHint(int edgeNumber) throws android.os.RemoteException
+      @Override public void showEdgeHint(int[] edgeNumber) throws android.os.RemoteException
       {
         android.os.Parcel _data = android.os.Parcel.obtain();
         android.os.Parcel _reply = android.os.Parcel.obtain();
         try {
           _data.writeInterfaceToken(DESCRIPTOR);
-          _data.writeInt(edgeNumber);
+          _data.writeIntArray(edgeNumber);
           boolean _status = mRemote.transact(Stub.TRANSACTION_showEdgeHint, _data, _reply, 0);
           _reply.readException();
         }
@@ -5513,7 +5513,7 @@ public interface IShortX extends android.os.IInterface
   public java.util.List<tornaco.apps.shortx.core.rule.action.ByteArrayWrapper> getInstalledApps() throws android.os.RemoteException;
   public java.lang.String getAppLabel(tornaco.apps.shortx.core.rule.action.ByteArrayWrapper pkg) throws android.os.RemoteException;
   public tornaco.apps.shortx.core.rule.action.ByteArrayWrapper pkgToApp(tornaco.apps.shortx.core.rule.action.ByteArrayWrapper pkg) throws android.os.RemoteException;
-  public void showEdgeHint(int edgeNumber) throws android.os.RemoteException;
+  public void showEdgeHint(int[] edgeNumber) throws android.os.RemoteException;
   // Direct Actions start
   public void addDirectAction(tornaco.apps.shortx.core.rule.action.ByteArrayWrapper da) throws android.os.RemoteException;
   public void deleteDirectAction(java.lang.String id) throws android.os.RemoteException;

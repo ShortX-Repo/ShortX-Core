@@ -43,7 +43,7 @@ interface IShortX {
     String getAppLabel(in ByteArrayWrapper pkg);
     ByteArrayWrapper pkgToApp(in ByteArrayWrapper pkg);
 
-    void showEdgeHint(int edgeNumber);
+    void showEdgeHint(in int[] edgeNumber);
 
     // Direct Actions start
     void addDirectAction(in ByteArrayWrapper da);

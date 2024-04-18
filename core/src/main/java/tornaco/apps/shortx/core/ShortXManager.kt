@@ -252,9 +252,9 @@ class ShortXManager(val service: IShortX) {
         }
     }
 
-    fun showEdgeHint(edge: Edge) {
+    fun showEdgeHint(edge: List<Edge>) {
         invokeService(Unit) {
-            showEdgeHint(edge.number)
+            showEdgeHint(edge.map { it.number }.toIntArray())
         }
     }
 

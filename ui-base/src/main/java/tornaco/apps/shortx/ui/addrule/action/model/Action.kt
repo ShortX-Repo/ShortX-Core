@@ -3967,12 +3967,46 @@ sealed interface Action : Parcelable {
         override val isEnabled: Boolean = true,
         override val actionOnError: ActionOnError = defaultActionOnError,
         override val customContextDataKey: CustomContextDataKey = CustomContextDataKey.getDefaultInstance(),
-        override val contextData: List<ContextData> = emptyList(),
+        override val contextData: List<ContextData> = dats<ContextDataMapping.MatchRegex>(
+            customContextDataKey
+        ),
         override val note: String = "",
 
         val string: String,
         val regex: String,
         val matchOptions: RegexMatchOptions
+    ) : Action {
+        override fun clone(
+            id: String,
+            note: String,
+            isEnabled: Boolean,
+            actionOnError: ActionOnError,
+            contextData: List<ContextData>
+        ): Action {
+            return this.copy(
+                id = id,
+                note = note,
+                isEnabled = isEnabled,
+                actionOnError = actionOnError,
+                contextData = contextData
+            )
+        }
+    }
+
+    @Parcelize
+    data class ReplaceRegex(
+        override val id: String = defaultNewActionId(),
+        override val isEnabled: Boolean = true,
+        override val actionOnError: ActionOnError = defaultActionOnError,
+        override val customContextDataKey: CustomContextDataKey = CustomContextDataKey.getDefaultInstance(),
+        override val contextData: List<ContextData> = dats<ContextDataMapping.ReplaceRegex>(
+            customContextDataKey
+        ),
+        override val note: String = "",
+
+        val string: String,
+        val regex: String,
+        val replacement: String,
     ) : Action {
         override fun clone(
             id: String,

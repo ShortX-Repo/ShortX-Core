@@ -281,4 +281,9 @@ object ContextDataMapping {
         isMatch("Indicates whether the regular expression matches the input"),
         matchResult("Returns a sequence of all occurrences of a regular expression within the input string"),
     }
+
+    @DoNotStrip
+    enum class ReplaceRegex(val description: String) {
+        replaceResult("Returns the replaced string"),
+    }
 }

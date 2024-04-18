@@ -1553,3 +1553,15 @@ message MatchRegex {
   string note = 99;
   string id = 100;
 }
+
+message ReplaceRegex {
+  string string = 1;
+  string regex = 2;
+  string replacement = 3;
+
+  CustomContextDataKey customContextDataKey = 96;
+  ActionOnError actionOnError = 97;
+  bool isDisabled = 98;
+  string note = 99;
+  string id = 100;
+}

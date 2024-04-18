@@ -525,6 +525,10 @@ fun imageVectorForAction(action: KClass<out Action>): String {
             Remix.Development.brackets_fill
         }
 
+        Action.ReplaceRegex::class -> {
+            Remix.Development.git_merge_fill
+        }
+
         else -> {
             Remix.Document.file_unknow_fill
         }

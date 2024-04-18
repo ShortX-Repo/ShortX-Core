@@ -58,6 +58,7 @@ import tornaco.apps.shortx.core.proto.action.RemoveNotificationForPackage
 import tornaco.apps.shortx.core.proto.action.RemoveNotificationForPackageByPkg
 import tornaco.apps.shortx.core.proto.action.RemoveTasks
 import tornaco.apps.shortx.core.proto.action.RemoveTasksByPkg
+import tornaco.apps.shortx.core.proto.action.ReplaceRegex
 import tornaco.apps.shortx.core.proto.action.ScrollViewTo
 import tornaco.apps.shortx.core.proto.action.SendSMS
 import tornaco.apps.shortx.core.proto.action.SetAPMModeEnabled
@@ -1702,6 +1703,20 @@ fun Action.toProtoAction(overrideId: String? = null, overrideNote: String? = nul
                 .setString(string)
                 .setRegex(regex)
                 .setMatchOptions(matchOptions)
+                .build()
+        }
+
+
+        is Action.ReplaceRegex -> {
+            ReplaceRegex.newBuilder()
+                .setId(overrideId ?: id)
+                .setIsDisabled(!isEnabled)
+                .setActionOnError(actionOnError)
+                .setCustomContextDataKey(contextData.toCustomContextDataKey())
+                .setNote(overrideNote ?: note)
+                .setString(string)
+                .setRegex(regex)
+                .setReplacement(replacement)
                 .build()
         }
 

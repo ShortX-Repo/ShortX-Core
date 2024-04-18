@@ -141,5 +141,6 @@ val allActionClasses = listOf(
     Action.SendSMS::class,
     Action.StopAllActions::class,
     Action.MatchRegex::class,
+    Action.ReplaceRegex::class,
     Action.NoAction::class,
 )

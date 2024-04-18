@@ -311,4 +311,8 @@ interface IShortX {
     void dispatchTagEndpoint(in byte[] uid);
     void registerNFCTagEndpointListener(in INFCTagEndpointListener listener);
     void unregisterNFCTagEndpointListener(in INFCTagEndpointListener listener);
+
+    // Swipe gesture.
+    float getSwipeLengthScale();
+    void setSwipeLengthScale(float scale);
 }

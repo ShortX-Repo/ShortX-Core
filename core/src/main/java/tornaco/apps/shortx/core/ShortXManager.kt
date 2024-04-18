@@ -769,6 +769,18 @@ class ShortXManager(val service: IShortX) {
         }
     }
 
+    fun getSwipeLengthScale(): Float {
+        return invokeService(0f) {
+            swipeLengthScale
+        }
+    }
+
+    fun setSwipeLengthScale(scale: Float) {
+        invokeService(Unit) {
+            swipeLengthScale = scale
+        }
+    }
+
     fun hasHookFlags(flag: String): Boolean {
         return invokeService(false) { hasHookFlags(flag) }
     }

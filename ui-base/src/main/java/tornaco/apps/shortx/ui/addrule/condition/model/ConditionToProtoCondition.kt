@@ -4,6 +4,7 @@ import tornaco.apps.shortx.core.proto.common.AppPkg
 import tornaco.apps.shortx.core.proto.condition.AppHasAudioFocus
 import tornaco.apps.shortx.core.proto.condition.AppHasNotification
 import tornaco.apps.shortx.core.proto.condition.AppHasTask
+import tornaco.apps.shortx.core.proto.condition.AppHasTaskByPkg
 import tornaco.apps.shortx.core.proto.condition.AppHasWindowFocus
 import tornaco.apps.shortx.core.proto.condition.AppIsNotRunning
 import tornaco.apps.shortx.core.proto.condition.AppIsRunning
@@ -130,6 +131,18 @@ fun Condition.toProtoCondition(overrideId: String? = null): ProtoMessage {
                 .addAllPkgSets(pkgSets.map {
                     it.label
                 })
+                .setOp(op.toConditionOperator())
+                .build()
+        }
+
+        is Condition.AppHasTaskByPkg -> {
+            AppHasTaskByPkg.newBuilder()
+                .setId(overrideId ?: id)
+                .setNote(note)
+                .setIsInvert(isInvert)
+                .setIsDisabled(isDisabled)
+                .setCustomContextDataKey(customContextDataKey)
+                .addAllPkgAndUsers(stringPairs)
                 .setOp(op.toConditionOperator())
                 .build()
         }

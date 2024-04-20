@@ -4,6 +4,7 @@ import tornaco.apps.shortx.core.ShortXManager
 import tornaco.apps.shortx.core.proto.condition.AppHasAudioFocus
 import tornaco.apps.shortx.core.proto.condition.AppHasNotification
 import tornaco.apps.shortx.core.proto.condition.AppHasTask
+import tornaco.apps.shortx.core.proto.condition.AppHasTaskByPkg
 import tornaco.apps.shortx.core.proto.condition.AppHasWindowFocus
 import tornaco.apps.shortx.core.proto.condition.AppIsNotRunning
 import tornaco.apps.shortx.core.proto.condition.AppIsRunning
@@ -112,6 +113,19 @@ fun ProtoAny.toCondition(shortXManager: ShortXManager): Condition? {
                 customContextDataKey = data.customContextDataKey,
                 apps = models.first,
                 pkgSets = models.second,
+                op = data.op.toOp(null)
+            )
+        }
+
+        this is_ AppHasTaskByPkg::class.java -> {
+            val data = this unpack_ AppHasTaskByPkg::class.java
+            Condition.AppHasTaskByPkg(
+                id = data.id,
+                note = data.note,
+                isInvert = data.isInvert,
+                isDisabled = data.isDisabled,
+                customContextDataKey = data.customContextDataKey,
+                stringPairs = data.pkgAndUsersList,
                 op = data.op.toOp(null)
             )
         }

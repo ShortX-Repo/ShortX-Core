@@ -36,6 +36,10 @@ fun iconForCondition(condition: KClass<out Condition>): String {
             Remix.Document.task_fill
         }
 
+        Condition.AppHasTaskByPkg::class -> {
+            Remix.Document.task_fill
+        }
+
         Condition.MVEL::class -> {
             Remix.Development.code_fill
         }

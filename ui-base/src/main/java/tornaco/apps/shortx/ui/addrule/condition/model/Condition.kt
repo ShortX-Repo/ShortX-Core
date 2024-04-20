@@ -150,6 +150,33 @@ sealed interface Condition : Parcelable {
     }
 
     @Parcelize
+    data class AppHasTaskByPkg(
+        val stringPairs: List<StringPair>,
+        val op: Op,
+        override val note: String = "",
+        override val isInvert: Boolean = false,
+        override val isDisabled: Boolean = false,
+        override val customContextDataKey: CustomContextDataKey = CustomContextDataKey.getDefaultInstance(),
+        override val id: String = defaultNewConditionId()
+    ) : Condition {
+        override fun clone(
+            id: String,
+            note: String,
+            isInvert: Boolean,
+            isDisabled: Boolean,
+            customContextDataKey: CustomContextDataKey
+        ): Condition {
+            return copy(
+                id = id,
+                note = note,
+                isInvert = isInvert,
+                isDisabled = isDisabled,
+                customContextDataKey = customContextDataKey
+            )
+        }
+    }
+
+    @Parcelize
     data class RequireAPMMode(
         val isEnableAPM: Boolean,
         override val note: String = "",

@@ -529,6 +529,10 @@ fun imageVectorForAction(action: KClass<out Action>): String {
             Remix.Development.git_merge_fill
         }
 
+        Action.TextProcessing::class -> {
+            Remix.Editor.text
+        }
+
         else -> {
             Remix.Document.file_unknow_fill
         }

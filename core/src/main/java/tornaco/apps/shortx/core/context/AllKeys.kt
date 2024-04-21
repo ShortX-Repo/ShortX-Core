@@ -46,4 +46,5 @@ val allKeys: List<String> = listOf(
     enumValues<ContextDataMapping.DownloadFile>().map { it.name },
     enumValues<ContextDataMapping.MatchRegex>().map { it.name },
     enumValues<ContextDataMapping.ReplaceRegex>().map { it.name },
+    enumValues<ContextDataMapping.TextProcessing>().map { it.name },
 ).flatten().distinct().sorted()

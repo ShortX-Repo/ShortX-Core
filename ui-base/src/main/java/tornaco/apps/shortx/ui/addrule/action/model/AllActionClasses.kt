@@ -142,5 +142,6 @@ val allActionClasses = listOf(
     Action.StopAllActions::class,
     Action.MatchRegex::class,
     Action.ReplaceRegex::class,
+    Action.TextProcessing::class,
     Action.NoAction::class,
 )

@@ -119,6 +119,10 @@ import tornaco.apps.shortx.core.proto.action.SwitchCase_Case
 import tornaco.apps.shortx.core.proto.action.SwitchMobileDataSlot
 import tornaco.apps.shortx.core.proto.action.TTS
 import tornaco.apps.shortx.core.proto.action.TakeScreenshot
+import tornaco.apps.shortx.core.proto.action.TextProcessing
+import tornaco.apps.shortx.core.proto.action.TextProcessingToPinyin
+import tornaco.apps.shortx.core.proto.action.TextProcessingTrimLength
+import tornaco.apps.shortx.core.proto.action.TextProcessingTrimSpace
 import tornaco.apps.shortx.core.proto.action.Toggle5G
 import tornaco.apps.shortx.core.proto.action.ToggleGestureRecording
 import tornaco.apps.shortx.core.proto.action.Vibrate
@@ -1200,6 +1204,39 @@ fun Action.toProtoAction(overrideId: String? = null, overrideNote: String? = nul
                 .setWithCookieJar(withCookieJar)
                 .setTrustAllCerts(trustAllCerts)
                 .setExecuteInAppProcess(executeInAppProcess)
+                .build()
+        }
+
+        is Action.TextProcessing -> {
+            TextProcessing.newBuilder()
+                .setId(overrideId ?: id)
+                .setIsDisabled(!isEnabled)
+                .setActionOnError(actionOnError)
+                .setCustomContextDataKey(contextData.toCustomContextDataKey())
+                .setNote(overrideNote ?: note)
+                .addAllProcessors(
+                    processors.map {
+                        when (it) {
+                            is TextProcessor.ToPinyin -> {
+                                TextProcessingToPinyin.newBuilder()
+                                    .build().pack_()
+                            }
+
+                            is TextProcessor.TrimSpace -> {
+                                TextProcessingTrimSpace.newBuilder()
+                                    .build().pack_()
+                            }
+
+                            is TextProcessor.TrimLength -> {
+                                TextProcessingTrimLength.newBuilder()
+                                    .setLength(it.length)
+                                    .build().pack_()
+                            }
+
+                        }
+                    }
+                )
+                .setText(text)
                 .build()
         }
 

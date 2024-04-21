@@ -286,4 +286,9 @@ object ContextDataMapping {
     enum class ReplaceRegex(val description: String) {
         replaceResult("Returns the replaced string"),
     }
+
+    @DoNotStrip
+    enum class TextProcessing(val description: String) {
+        textProcessResult("Returns the processed string"),
+    }
 }

@@ -244,6 +244,7 @@ fun labelAndDescriptionForActionSelector(
         Action.StopAllActions::class -> i18N["ui.action.stop.all.actions"] to null
         Action.MatchRegex::class -> i18N["ui.action.match.regex"] to null
         Action.ReplaceRegex::class -> i18N["ui.action.replace.regex"] to null
+        Action.TextProcessing::class -> i18N["ui.action.text.processing"] to null
         Action.SwitchCase::class -> i18N.get(
             key = "ui.action.switch.case",
             fallback = "Switch case"
@@ -971,6 +972,11 @@ fun labelLinesForAction(i18N: I18N, action: Action): List<String> {
         is Action.ReplaceRegex -> listOf(
             i18N["ui.action.replace.regex"],
             "${action.regex} - ${action.string} - ${action.replacement}"
+        )
+
+        is Action.TextProcessing -> listOf(
+            i18N["ui.action.text.processing"],
+            action.text
         )
     }
 }

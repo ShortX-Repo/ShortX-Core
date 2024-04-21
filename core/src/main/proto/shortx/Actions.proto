@@ -1565,3 +1565,25 @@ message ReplaceRegex {
   string note = 99;
   string id = 100;
 }
+
+message TextProcessing {
+  string text = 1;
+  repeated google.protobuf.Any processors = 2;
+
+  CustomContextDataKey customContextDataKey = 96;
+  ActionOnError actionOnError = 97;
+  bool isDisabled = 98;
+  string note = 99;
+  string id = 100;
+}
+
+message TextProcessingTrimLength {
+  string length = 1;
+}
+
+message TextProcessingTrimSpace {
+}
+
+message TextProcessingToPinyin {
+  string length = 1;
+}

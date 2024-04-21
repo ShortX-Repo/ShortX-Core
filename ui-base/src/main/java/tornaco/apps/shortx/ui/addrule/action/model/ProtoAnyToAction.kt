@@ -8,6 +8,9 @@ import tornaco.apps.shortx.core.proto.action.HttpRequestHeaderBodyJsonMapAdapter
 import tornaco.apps.shortx.core.proto.action.HttpRequestJsonMapAdapter
 import tornaco.apps.shortx.core.proto.action.IfThenElse
 import tornaco.apps.shortx.core.proto.action.SwitchCase
+import tornaco.apps.shortx.core.proto.action.TextProcessingToPinyin
+import tornaco.apps.shortx.core.proto.action.TextProcessingTrimLength
+import tornaco.apps.shortx.core.proto.action.TextProcessingTrimSpace
 import tornaco.apps.shortx.core.proto.action.WaitUtilConditionMatch
 import tornaco.apps.shortx.core.proto.common.GestureRecord
 import tornaco.apps.shortx.core.proto.pkgset.PkgSet
@@ -1330,6 +1333,31 @@ fun ProtoAny.toAction(shortXManager: ShortXManager): Action? {
                 withCookieJar = data.withCookieJar,
                 trustAllCerts = data.trustAllCerts,
                 executeInAppProcess = data.executeInAppProcess
+            )
+        }
+
+        this is_ tornaco.apps.shortx.core.proto.action.TextProcessing::class.java -> {
+            val data =
+                this unpack_ tornaco.apps.shortx.core.proto.action.TextProcessing::class.java
+            Action.TextProcessing(
+                isEnabled = !data.isDisabled,
+                actionOnError = data.actionOnError,
+                customContextDataKey = data.customContextDataKey,
+                id = data.id,
+                note = data.note,
+                text = data.text,
+                processors = data.processorsList.mapNotNull {
+                    if (it is_ TextProcessingToPinyin::class.java) {
+                        TextProcessor.ToPinyin
+                    } else if (it is_ TextProcessingTrimSpace::class.java) {
+                        TextProcessor.TrimSpace
+                    } else if (it is_ TextProcessingTrimLength::class.java) {
+                        val ttl = it unpack_ TextProcessingTrimLength::class.java
+                        TextProcessor.TrimLength(ttl.length)
+                    } else {
+                        null
+                    }
+                },
             )
         }
 

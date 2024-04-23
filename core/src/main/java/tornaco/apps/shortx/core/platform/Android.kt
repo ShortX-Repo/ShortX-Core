@@ -39,12 +39,14 @@ object Methods {
     const val activityResumedLocked = "activityResumedLocked"
     const val activityStopped = "activityStopped"
     const val activityStoppedLocked = "activityStoppedLocked"
+    const val destroyed = "destroyed"
     const val updateState = "updateState"
     const val onMediaStoreInsert = "onMediaStoreInsert"
     const val onMediaStoreDelete = "onMediaStoreDelete"
     const val interceptKeyBeforeQueueing = "interceptKeyBeforeQueueing"
     const val onCreate = "onCreate"
     const val updateScreenStateLocked = "updateScreenStateLocked"
+    const val setState = "setState"
 }
 
 object ClassNames {

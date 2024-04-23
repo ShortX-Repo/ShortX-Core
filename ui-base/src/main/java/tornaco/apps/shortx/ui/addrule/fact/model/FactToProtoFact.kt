@@ -3,6 +3,7 @@ package tornaco.apps.shortx.ui.addrule.fact.model
 import tornaco.apps.shortx.core.alarm.toProto
 import tornaco.apps.shortx.core.proto.common.AppPkg
 import tornaco.apps.shortx.core.proto.fact.APMStatusChanged
+import tornaco.apps.shortx.core.proto.fact.ActivityDestroyed
 import tornaco.apps.shortx.core.proto.fact.ActivityStarted
 import tornaco.apps.shortx.core.proto.fact.ActivityStopped
 import tornaco.apps.shortx.core.proto.fact.AdvancedKeyEvent
@@ -113,6 +114,15 @@ fun Fact.toProtoFact(
 
         is Fact.ActivityStopped -> {
             ActivityStopped.newBuilder()
+                .addAllComponents(components)
+                .setId(overrideId ?: id).setNote(overrideNote ?: note)
+                .setIsDisabled(isDisabled).setTag(overrideTag ?: tag)
+                .setCustomContextDataKey(customContextDataKey)
+                .build()
+        }
+
+        is Fact.ActivityDestroyed -> {
+            ActivityDestroyed.newBuilder()
                 .addAllComponents(components)
                 .setId(overrideId ?: id).setNote(overrideNote ?: note)
                 .setIsDisabled(isDisabled).setTag(overrideTag ?: tag)

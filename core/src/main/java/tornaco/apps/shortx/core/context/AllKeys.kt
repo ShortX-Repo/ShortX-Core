@@ -12,6 +12,7 @@ val allKeys: List<String> = listOf(
     enumValues<ContextDataMapping.HttpRequest>().map { it.name },
     enumValues<ContextDataMapping.ActivityStarted>().map { it.name },
     enumValues<ContextDataMapping.ActivityStopped>().map { it.name },
+    enumValues<ContextDataMapping.ActivityDestroyed>().map { it.name },
     enumValues<ContextDataMapping.AppBecomeFg>().map { it.name },
     enumValues<ContextDataMapping.AppBecomeBg>().map { it.name },
     enumValues<ContextDataMapping.TaskRemoved>().map { it.name },

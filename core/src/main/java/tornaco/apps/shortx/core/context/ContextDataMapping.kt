@@ -52,9 +52,17 @@ object ContextDataMapping {
 
     @DoNotStrip
     enum class ActivityStopped(val description: String) {
-        pkgName("App package name of the started Activity"),
-        userId("App user id the started Activity"),
-        componentName("Short string of the started Activity component name"),
+        pkgName("App package name of the stopped Activity"),
+        userId("App user id the stopped Activity"),
+        componentName("Short string of the stopped Activity component name"),
+        appLabel("The app label"),
+    }
+
+    @DoNotStrip
+    enum class ActivityDestroyed(val description: String) {
+        pkgName("App package name of the destroyed Activity"),
+        userId("App user id the destroyed Activity"),
+        componentName("Short string of the destroyed Activity component name"),
         appLabel("The app label"),
     }
 

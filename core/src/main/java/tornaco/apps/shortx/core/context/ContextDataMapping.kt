@@ -47,6 +47,7 @@ object ContextDataMapping {
         userId("App user id the started Activity"),
         componentName("Short string of the started Activity component name"),
         appLabel("The app label"),
+        taskLabel("The task label"),
         activityIntentUri("Intent to uri")
     }
 
@@ -56,6 +57,7 @@ object ContextDataMapping {
         userId("App user id the stopped Activity"),
         componentName("Short string of the stopped Activity component name"),
         appLabel("The app label"),
+        taskLabel("The task label"),
     }
 
     @DoNotStrip
@@ -64,6 +66,7 @@ object ContextDataMapping {
         userId("App user id the destroyed Activity"),
         componentName("Short string of the destroyed Activity component name"),
         appLabel("The app label"),
+        taskLabel("The task label"),
     }
 
     @DoNotStrip

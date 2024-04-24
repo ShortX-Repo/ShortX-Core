@@ -137,6 +137,20 @@ fun Fact.toProtoFact(
                 .setCustomContextDataKey(customContextDataKey).build()
         }
 
+        is Fact.AnyActivityStopped -> {
+            ActivityStopped.newBuilder().setId(overrideId ?: id).setNote(overrideNote ?: note)
+                .setIsDisabled(isDisabled)
+                .setTag(overrideTag ?: tag)
+                .setCustomContextDataKey(customContextDataKey).build()
+        }
+
+        is Fact.AnyActivityDestroyed -> {
+            ActivityDestroyed.newBuilder().setId(overrideId ?: id).setNote(overrideNote ?: note)
+                .setIsDisabled(isDisabled)
+                .setTag(overrideTag ?: tag)
+                .setCustomContextDataKey(customContextDataKey).build()
+        }
+
         is Fact.EdgeGesture -> {
             EdgeGesture.newBuilder()
                 .setEdge(edge)

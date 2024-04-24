@@ -13,6 +13,8 @@ fun imageVectorForFact(fact: KClass<out Fact>): String {
         Fact.ActivityStopped::class -> Remix.Logos.android_fill
         Fact.ActivityDestroyed::class -> Remix.Logos.android_fill
         Fact.AnyActivityStarted::class -> Remix.Logos.android_fill
+        Fact.AnyActivityStopped::class -> Remix.Logos.android_fill
+        Fact.AnyActivityDestroyed::class -> Remix.Logos.android_fill
         Fact.EdgeGesture::class -> Remix.Editor.sketching
         Fact.KeyEvent::class -> Remix.Device.keyboard_fill
         Fact.AdvancedKeyEvent::class -> Remix.Device.keyboard_fill

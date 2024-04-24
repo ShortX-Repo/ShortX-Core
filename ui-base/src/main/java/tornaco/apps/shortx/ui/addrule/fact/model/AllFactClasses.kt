@@ -5,6 +5,9 @@ val allFactClasses = listOf(
     Fact.AdvancedKeyEvent::class,
 
     Fact.AnyActivityStarted::class,
+    Fact.AnyActivityStopped::class,
+    Fact.AnyActivityDestroyed::class,
+
     Fact.ActivityStarted::class,
     Fact.ActivityStopped::class,
     Fact.ActivityDestroyed::class,

@@ -283,27 +283,48 @@ fun ProtoAny.toFact(shortXManager: ShortXManager): Fact? {
 
         this is_ tornaco.apps.shortx.core.proto.fact.ActivityStopped::class.java -> {
             val data = this unpack_ tornaco.apps.shortx.core.proto.fact.ActivityStopped::class.java
-            Fact.ActivityStopped(
-                data.componentsList,
-                id = data.id,
-                customContextDataKey = data.customContextDataKey,
-                note = data.note,
-                isDisabled = data.isDisabled,
-                tag = data.tag
-            )
+
+            if (data.componentsList.isEmpty()) {
+                Fact.AnyActivityStopped(
+                    id = data.id,
+                    customContextDataKey = data.customContextDataKey,
+                    note = data.note,
+                    isDisabled = data.isDisabled,
+                    tag = data.tag
+                )
+            } else {
+                Fact.ActivityStopped(
+                    data.componentsList,
+                    id = data.id,
+                    customContextDataKey = data.customContextDataKey,
+                    note = data.note,
+                    isDisabled = data.isDisabled,
+                    tag = data.tag
+                )
+            }
         }
 
         this is_ tornaco.apps.shortx.core.proto.fact.ActivityDestroyed::class.java -> {
             val data =
                 this unpack_ tornaco.apps.shortx.core.proto.fact.ActivityDestroyed::class.java
-            Fact.ActivityDestroyed(
-                data.componentsList,
-                id = data.id,
-                customContextDataKey = data.customContextDataKey,
-                note = data.note,
-                isDisabled = data.isDisabled,
-                tag = data.tag
-            )
+            if (data.componentsList.isEmpty()) {
+                Fact.AnyActivityDestroyed(
+                    id = data.id,
+                    customContextDataKey = data.customContextDataKey,
+                    note = data.note,
+                    isDisabled = data.isDisabled,
+                    tag = data.tag
+                )
+            } else {
+                Fact.ActivityDestroyed(
+                    data.componentsList,
+                    id = data.id,
+                    customContextDataKey = data.customContextDataKey,
+                    note = data.note,
+                    isDisabled = data.isDisabled,
+                    tag = data.tag
+                )
+            }
         }
 
         this is_ tornaco.apps.shortx.core.proto.fact.WifiStatusChanged::class.java -> {

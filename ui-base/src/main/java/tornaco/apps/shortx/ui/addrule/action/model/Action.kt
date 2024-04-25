@@ -706,6 +706,7 @@ sealed interface Action : Parcelable {
         val isImportant: Boolean,
         val vibrate: Boolean,
         val sound: Boolean,
+        val ongoing: Boolean,
         val buttons: List<NotificationButton>,
         val onClickActions: List<Action>
     ) : Action {

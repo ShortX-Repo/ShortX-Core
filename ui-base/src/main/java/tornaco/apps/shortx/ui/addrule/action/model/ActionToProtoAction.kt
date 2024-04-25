@@ -798,6 +798,7 @@ fun Action.toProtoAction(overrideId: String? = null, overrideNote: String? = nul
                 .setLargeIcon(largeIcon)
                 .setIsImportant(isImportant)
                 .setSound(sound)
+                .setOnGoing(ongoing)
                 .setVibrate(vibrate)
                 .addAllButton(buttons)
                 .addAllClickAction(onClickActions.map { it.toProtoAction().pack_() })

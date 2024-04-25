@@ -696,6 +696,8 @@ message PostNotification {
 
   string overrideAppName = 11;
 
+  bool onGoing = 12;
+
   CustomContextDataKey customContextDataKey = 96;
   ActionOnError actionOnError = 97;
   bool isDisabled = 98;

@@ -15,6 +15,8 @@ import tornaco.apps.shortx.core.compat.NotificationCompat.VISIBILITY_PUBLIC
 import tornaco.apps.shortx.core.compat.NotificationManagerCompat
 import tornaco.apps.shortx.core.proto.action.NotificationButton
 import tornaco.apps.shortx.core.proto.action.PostNotification
+import tornaco.apps.shortx.core.rule.IGlobalVarObserver
+import tornaco.apps.shortx.core.shortXManager
 import tornaco.apps.shortx.core.util.Logger
 import tornaco.apps.shortx.core.util.OsUtils
 import java.util.Objects
@@ -65,6 +67,15 @@ class NotificationPoster(
     }
 
     init {
+        shortXManager.registerGlobalVarObs(object : IGlobalVarObserver.Stub() {
+            override fun onAddOrUpdate(id: String?) {
+                logger.d("Global var changed: $id")
+            }
+
+            override fun onDelete(id: String?) {
+            }
+        })
+
         ContextCompat.registerReceiver(
             context,
             object : BroadcastReceiver() {
@@ -112,7 +123,8 @@ class NotificationPoster(
                 }
             )
 
-            val preferredOverrideName = notification.overrideAppName.takeIf { it.isNotEmpty() } ?: overrideName
+            val preferredOverrideName =
+                overrideAppName.takeIf { it.isNotEmpty() } ?: overrideName
             logger.d("preferredOverrideName: $preferredOverrideName")
             kotlin.runCatching {
                 SystemUI.overrideNotificationAppName(
@@ -123,17 +135,17 @@ class NotificationPoster(
             }
 
             val style = NotificationCompat.BigTextStyle()
-            style.bigText(notification.message)
-            style.setBigContentTitle(notification.title)
+            style.bigText(message)
+            style.setBigContentTitle(title)
 
             val curSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
 
-            builder.setContentTitle(notification.title)
-                .setContentText(notification.message)
+            builder.setContentTitle(title)
+                .setContentText(message)
                 .setSmallIcon(android.R.drawable.stat_sys_warning)
                 .setVisibility(VISIBILITY_PUBLIC)
                 .setPriority(if (isImportant) NotificationCompat.PRIORITY_HIGH else NotificationCompat.PRIORITY_LOW)
-                .setAutoCancel(true)
+                .setAutoCancel(!onGoing)
                 .apply {
                     notification.buttonList.forEach {
                         val pi = NotificationPosterGlobal.buttonIntent(context, it)
@@ -142,6 +154,9 @@ class NotificationPoster(
                     }
                 }
                 .setStyle(style)
+                .setOngoing(onGoing)
+                .setOnlyAlertOnce(onGoing)
+                .setWhen(System.currentTimeMillis())
 
             if (largeIcon.isNotEmpty()) {
                 getBitmap(largeIcon)?.let {
@@ -149,7 +164,7 @@ class NotificationPoster(
                 }
             }
 
-            if (notification.clickActionList.isNotEmpty()) {
+            if (clickActionList.isNotEmpty()) {
                 builder.setContentIntent(
                     NotificationPosterGlobal.notificationIntent(
                         context,
@@ -175,8 +190,6 @@ class NotificationPoster(
                     n.smallIcon = it
                 }
             }
-
-            cancelNotification(tag)
             NotificationManagerCompat.from(context)
                 .notify(tag, NotificationIdFactory.getIdByTag(tag), n)
         }

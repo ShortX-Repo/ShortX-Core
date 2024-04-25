@@ -274,6 +274,11 @@ object ContextDataMapping {
     }
 
     @DoNotStrip
+    enum class Logcat(val description: String) {
+        line("Matched log line"),
+    }
+
+    @DoNotStrip
     enum class ForEachPkgSet(val description: String) {
         loopAppLabel("App label of current loop"),
         loopAppPkgName("App package name of current loop"),

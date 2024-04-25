@@ -178,6 +178,14 @@ fun KClass<out Fact>.factContextData(customContextDataKey: CustomContextDataKey 
             dats<ContextDataMapping.ClipboardContentChanged>(customContextDataKey)
         }
 
+        Fact.HasFoundNodeOnScreen::class -> {
+            dats<ContextDataMapping.HasFoundNodeOnScreen>(customContextDataKey)
+        }
+
+        Fact.Logcat::class -> {
+            dats<ContextDataMapping.Logcat>(customContextDataKey)
+        }
+
         else -> {
             emptyList()
         }

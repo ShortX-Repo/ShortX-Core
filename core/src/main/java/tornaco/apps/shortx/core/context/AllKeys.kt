@@ -43,6 +43,7 @@ val allKeys: List<String> = listOf(
     enumValues<ContextDataMapping.CallStateChanged>().map { it.name },
     enumValues<ContextDataMapping.ClipboardContentChanged>().map { it.name },
     enumValues<ContextDataMapping.HasFoundNodeOnScreen>().map { it.name },
+    enumValues<ContextDataMapping.Logcat>().map { it.name },
     enumValues<ContextDataMapping.ForEachPkgSet>().map { it.name },
     enumValues<ContextDataMapping.DownloadFile>().map { it.name },
     enumValues<ContextDataMapping.MatchRegex>().map { it.name },

@@ -990,6 +990,21 @@ fun ProtoAny.toFact(shortXManager: ShortXManager): Fact? {
             )
         }
 
+        this is_ tornaco.apps.shortx.core.proto.fact.Logcat::class.java -> {
+            val data =
+                this unpack_ tornaco.apps.shortx.core.proto.fact.Logcat::class.java
+
+            Fact.Logcat(
+                id = data.id,
+                customContextDataKey = data.customContextDataKey,
+                note = data.note,
+                isDisabled = data.isDisabled,
+                tag = data.tag,
+                regex = data.regex,
+                regexMatchOptions = data.regexMatchOptions,
+            )
+        }
+
         this is_ tornaco.apps.shortx.core.proto.fact.HasFoundNodeOnScreen::class.java -> {
             val data =
                 this unpack_ tornaco.apps.shortx.core.proto.fact.HasFoundNodeOnScreen::class.java

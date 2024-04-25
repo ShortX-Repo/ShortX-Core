@@ -28,6 +28,7 @@ import tornaco.apps.shortx.ui.addrule.fact.model.Fact
 import tornaco.apps.shortx.ui.addrule.labelLinesFromAppsAndPkgSets
 import tornaco.apps.shortx.ui.base.LocalI18N
 import tornaco.apps.shortx.ui.base.PREFIX_APP_ICON
+import tornaco.apps.shortx.ui.base.labelKey
 import java.util.Locale
 import kotlin.reflect.KClass
 
@@ -248,6 +249,10 @@ fun labelAndDescriptionForFactSelector(i18n: I18N, fact: KClass<out Fact>): Pair
 
         Fact.DeepLinkCall::class -> {
             i18n["ui.fact.deeplink.call"] to null
+        }
+
+        Fact.Logcat::class -> {
+            i18n["ui.fact.logcat"] to null
         }
 
         else -> "N/A" to null
@@ -751,6 +756,13 @@ fun labelForFact(i18N: I18N, fact: Fact): List<String> {
             listOf(
                 i18N["ui.fact.nfc.tag"],
                 fact.uid.joinToString("")
+            )
+        }
+
+        is Fact.Logcat -> {
+            listOf(
+                i18N["ui.fact.logcat"],
+                "${i18N[fact.regexMatchOptions.labelKey()]} ${fact.regex}"
             )
         }
     }

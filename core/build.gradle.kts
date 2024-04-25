@@ -23,6 +23,7 @@ buildConfig {
     className("BuildProp")
     useKotlinOutput { internalVisibility = false }
 
+    buildConfigField("String", "LOG_PREFIX", "\"ShortX-\"")
     buildConfigField("String", "TG_GROUP", "\"https://t.me/shortxmod\"")
     buildConfigField("String", "QQ_GROUP_1", "\"882416995\"")
     buildConfigField("String", "WIKI_URL", "\"https://shortx-repo.github.io/ShortX-Pages/zh/\"")

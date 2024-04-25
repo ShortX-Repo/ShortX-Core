@@ -44,6 +44,7 @@ import tornaco.apps.shortx.core.proto.fact.HotSpotStatusChanged
 import tornaco.apps.shortx.core.proto.fact.IMEVisibilityChange
 import tornaco.apps.shortx.core.proto.fact.KeyEvent
 import tornaco.apps.shortx.core.proto.fact.LocationStatusChanged
+import tornaco.apps.shortx.core.proto.fact.Logcat
 import tornaco.apps.shortx.core.proto.fact.MediaStoreInsert
 import tornaco.apps.shortx.core.proto.fact.MobileDataStatusChanged
 import tornaco.apps.shortx.core.proto.fact.NFCStatusChanged
@@ -726,6 +727,17 @@ fun Fact.toProtoFact(
                 .setTag(overrideTag ?: tag)
                 .setCustomContextDataKey(customContextDataKey)
                 .setUid(uid)
+                .build()
+        }
+
+        is Fact.Logcat -> {
+            Logcat.newBuilder().setId(overrideId ?: id)
+                .setNote(overrideNote ?: note)
+                .setIsDisabled(isDisabled)
+                .setTag(overrideTag ?: tag)
+                .setCustomContextDataKey(customContextDataKey)
+                .setRegex(regex)
+                .setRegexMatchOptions(regexMatchOptions)
                 .build()
         }
 

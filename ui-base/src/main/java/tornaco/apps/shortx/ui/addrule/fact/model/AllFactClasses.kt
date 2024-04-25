@@ -96,6 +96,7 @@ val allFactClasses = listOf(
     Fact.AppLostWindowFocus::class,
 
     Fact.DeepLinkCall::class,
+    Fact.Logcat::class,
 
 
     Fact.AnyFact::class,

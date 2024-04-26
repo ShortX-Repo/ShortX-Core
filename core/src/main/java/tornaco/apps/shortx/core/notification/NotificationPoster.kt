@@ -1,5 +1,6 @@
 package tornaco.apps.shortx.core.notification
 
+import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -145,7 +146,7 @@ class NotificationPoster(
                 }
                 .setStyle(style)
                 .setOngoing(onGoing)
-                .setOnlyAlertOnce(onGoing)
+                .setOnlyAlertOnce(true)
                 .setWhen(System.currentTimeMillis())
                 .setExtras(Bundle().apply {
                     extrasList.forEach { putString(it.key, it.value) }
@@ -177,6 +178,10 @@ class NotificationPoster(
             }
 
             val n = builder.build()
+
+            if (onGoing) {
+                n.flags = Notification.FLAG_NO_CLEAR or Notification.FLAG_ONGOING_EVENT
+            }
 
             if (smallIcon.isNotEmpty()) {
                 getIcon(smallIcon)?.let {

@@ -9,14 +9,13 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.graphics.Bitmap
 import android.media.RingtoneManager
+import android.os.Bundle
 import tornaco.apps.shortx.core.compat.ContextCompat
 import tornaco.apps.shortx.core.compat.NotificationCompat
 import tornaco.apps.shortx.core.compat.NotificationCompat.VISIBILITY_PUBLIC
 import tornaco.apps.shortx.core.compat.NotificationManagerCompat
 import tornaco.apps.shortx.core.proto.action.NotificationButton
 import tornaco.apps.shortx.core.proto.action.PostNotification
-import tornaco.apps.shortx.core.rule.IGlobalVarObserver
-import tornaco.apps.shortx.core.shortXManager
 import tornaco.apps.shortx.core.util.Logger
 import tornaco.apps.shortx.core.util.OsUtils
 import java.util.Objects
@@ -67,15 +66,6 @@ class NotificationPoster(
     }
 
     init {
-        shortXManager.registerGlobalVarObs(object : IGlobalVarObserver.Stub() {
-            override fun onAddOrUpdate(id: String?) {
-                logger.d("Global var changed: $id")
-            }
-
-            override fun onDelete(id: String?) {
-            }
-        })
-
         ContextCompat.registerReceiver(
             context,
             object : BroadcastReceiver() {
@@ -157,6 +147,9 @@ class NotificationPoster(
                 .setOngoing(onGoing)
                 .setOnlyAlertOnce(onGoing)
                 .setWhen(System.currentTimeMillis())
+                .setExtras(Bundle().apply {
+                    extrasList.forEach { putString(it.key, it.value) }
+                })
 
             if (largeIcon.isNotEmpty()) {
                 getBitmap(largeIcon)?.let {

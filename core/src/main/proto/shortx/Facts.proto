@@ -418,6 +418,10 @@ message Notification {
 
   string tag = 8;
   string key = 9;
+
+  bool ongoing = 12;
+
+  repeated AndroidIntentExtra extras = 13;
 }
 
 message NotificationPosted {

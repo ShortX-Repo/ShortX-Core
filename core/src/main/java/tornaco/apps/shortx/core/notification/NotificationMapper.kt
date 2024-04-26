@@ -2,6 +2,8 @@ package tornaco.apps.shortx.core.notification
 
 import android.os.UserHandle
 import android.service.notification.StatusBarNotification
+import tornaco.apps.shortx.core.proto.common.AndroidIntentExtra
+import tornaco.apps.shortx.core.proto.common.AndroidIntentExtraType
 import tornaco.apps.shortx.core.proto.common.AppPkg
 import tornaco.apps.shortx.core.proto.fact.Notification
 import tornaco.apps.shortx.core.util.Logger
@@ -34,6 +36,8 @@ fun StatusBarNotification.androidSBNToNotification(): Notification? {
             .setKey(sbn.key ?: "")
             .setNotificationId(getId(sbn)?.toString() ?: "")
             .setIsFgService(isFgService)
+            .setOngoing(isOngoing)
+            .addAllExtras(getExtras(n))
             .addApps(
                 AppPkg.newBuilder()
                     .setUserId(getNormalizedUserId(sbn))
@@ -99,4 +103,20 @@ fun getNormalizedUserId(sbn: StatusBarNotification): Int {
         userId = UserHandle.USER_SYSTEM
     }
     return userId
+}
+
+fun getExtras(notification: android.app.Notification): List<AndroidIntentExtra> {
+    val extras = notification.extras
+    return extras.keySet().mapNotNull {
+        runCatching {
+            AndroidIntentExtra.newBuilder()
+                .setKey(it)
+                .setValue(extras.get(it)?.toString().orEmpty())
+                .setType(AndroidIntentExtraType.String)
+                .build()
+        }.getOrElse {
+            logger.e(it, "getExtras")
+            null
+        }
+    }
 }

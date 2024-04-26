@@ -697,6 +697,7 @@ message PostNotification {
   string overrideAppName = 11;
 
   bool onGoing = 12;
+  repeated AndroidIntentExtra extras = 13;
 
   CustomContextDataKey customContextDataKey = 96;
   ActionOnError actionOnError = 97;

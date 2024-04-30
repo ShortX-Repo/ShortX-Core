@@ -34,6 +34,7 @@ import tornaco.apps.shortx.core.proto.condition.RequireDelay
 import tornaco.apps.shortx.core.proto.condition.RequireFactTag
 import tornaco.apps.shortx.core.proto.condition.RequireIMEVisibility
 import tornaco.apps.shortx.core.proto.condition.RequireMobileDataEnabled
+import tornaco.apps.shortx.core.proto.condition.RequireNotificationPanelExpanded
 import tornaco.apps.shortx.core.proto.condition.RequireScreenRotate
 import tornaco.apps.shortx.core.proto.condition.RequireSensorOff
 import tornaco.apps.shortx.core.proto.condition.RequireTileState
@@ -634,6 +635,18 @@ fun ProtoAny.toCondition(shortXManager: ShortXManager): Condition? {
                 isDisabled = data.isDisabled,
                 customContextDataKey = data.customContextDataKey,
                 isShown = data.isShown
+            )
+        }
+
+        this is_ RequireNotificationPanelExpanded::class.java -> {
+            val data = this unpack_ RequireNotificationPanelExpanded::class.java
+            Condition.RequireNotificationPanelExpanded(
+                id = data.id,
+                note = data.note,
+                isInvert = data.isInvert,
+                isDisabled = data.isDisabled,
+                customContextDataKey = data.customContextDataKey,
+                isExpand = data.isExpand
             )
         }
 

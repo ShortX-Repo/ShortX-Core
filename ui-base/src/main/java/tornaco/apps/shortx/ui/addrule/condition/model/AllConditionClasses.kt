@@ -45,6 +45,7 @@ val allConditionClasses = listOf(
     Condition.AppHasTaskByPkg::class,
     Condition.RequireAPMMode::class,
     Condition.RequireIMEVisibility::class,
+    Condition.RequireNotificationPanelExpanded::class,
     Condition.ConnectedWifiSignal::class,
     Condition.TheXXTimeToday::class,
 )

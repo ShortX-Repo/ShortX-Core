@@ -34,6 +34,7 @@ import tornaco.apps.shortx.core.proto.condition.RequireDelay
 import tornaco.apps.shortx.core.proto.condition.RequireFactTag
 import tornaco.apps.shortx.core.proto.condition.RequireIMEVisibility
 import tornaco.apps.shortx.core.proto.condition.RequireMobileDataEnabled
+import tornaco.apps.shortx.core.proto.condition.RequireNotificationPanelExpanded
 import tornaco.apps.shortx.core.proto.condition.RequireScreenRotate
 import tornaco.apps.shortx.core.proto.condition.RequireSensorOff
 import tornaco.apps.shortx.core.proto.condition.RequireTileState
@@ -651,6 +652,17 @@ fun Condition.toProtoCondition(overrideId: String? = null): ProtoMessage {
                 .setIsDisabled(isDisabled)
                 .setCustomContextDataKey(customContextDataKey)
                 .setIsShown(isShown)
+                .build()
+        }
+
+        is Condition.RequireNotificationPanelExpanded -> {
+            RequireNotificationPanelExpanded.newBuilder()
+                .setId(overrideId ?: id)
+                .setNote(note)
+                .setIsInvert(isInvert)
+                .setIsDisabled(isDisabled)
+                .setCustomContextDataKey(customContextDataKey)
+                .setIsExpand(isExpand)
                 .build()
         }
 

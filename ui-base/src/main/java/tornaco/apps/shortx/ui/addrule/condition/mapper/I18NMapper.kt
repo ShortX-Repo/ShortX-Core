@@ -270,7 +270,7 @@ fun labelForConditionSelector(i18N: I18N, condition: KClass<out Condition>): Lis
 
         Condition.RequireNotificationPanelExpanded::class -> {
             listOf(
-                i18N["ui.conditions.n.panel.expanded"],
+                i18N["ui.condition.n.panel.expanded"],
             )
         }
 
@@ -597,10 +597,10 @@ fun labelForCondition(i18N: I18N, condition: Condition): List<String> {
 
         is Condition.RequireNotificationPanelExpanded -> {
             listOf(
-                i18N["ui.conditions.n.panel.expanded"],
+                i18N["ui.condition.n.panel.expanded"],
                 condition.isExpand.select(
-                    i18N["ui.conditions.n.panel.expanded.y"],
-                    i18N["ui.conditions.n.panel.expanded.n"],
+                    i18N["ui.condition.n.panel.expanded.y"],
+                    i18N["ui.condition.n.panel.expanded.n"],
                 )
             )
         }

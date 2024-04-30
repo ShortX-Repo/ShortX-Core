@@ -71,7 +71,7 @@ fun OutlineBadge(modifier: Modifier = Modifier, text: String) {
         Text(
             modifier = Modifier.padding(horizontal = 4.dp),
             text = text,
-            fontSize = 10.sp,
+            fontSize = 9.sp,
             fontFamily = fontFamilyProductSansRegular(),
             color = MaterialTheme.colorScheme.primary
         )

@@ -10,6 +10,9 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
@@ -85,62 +88,67 @@ private val DarkColors = darkColorScheme(
 @Composable
 fun ShortXTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
     content: @Composable () -> Unit,
 ) {
-    val colorScheme = when {
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-            val context = LocalContext.current
-            if (darkTheme) {
-                dynamicDarkColorScheme(context)
-            } else {
-                dynamicLightColorScheme(context)
+    val context = LocalContext.current
+
+    // Dynamic color is available on Android 12+
+    val pref = remember { ThemePref(context) }
+    val applyDynamicColor: Boolean? by pref.themeDynamicColor.collectAsState(initial = null)
+
+    applyDynamicColor?.let { dynamicColor ->
+        val colorScheme = when {
+            dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
+                if (darkTheme) {
+                    dynamicDarkColorScheme(context)
+                } else {
+                    dynamicLightColorScheme(context)
+                }
             }
+
+            darkTheme -> DarkColors
+            else -> LightColors
+        }
+        val shortXColorScheme = when {
+            darkTheme -> ShortXColorScheme(
+                checkedThumb = Color.White,
+                checkedTrack = colorScheme.primaryContainer,
+                uncheckedThumb = Color(0xFFEAEAEA),
+                uncheckedTrack = Color(0xFF777777),
+            )
+
+            else -> ShortXColorScheme(
+                checkedThumb = Color.White,
+                checkedTrack = colorScheme.primary,
+                uncheckedThumb = Color(0xFFfafafa),
+                uncheckedTrack = Color(0xFFdddddd),
+            )
         }
 
-        darkTheme -> DarkColors
-        else -> LightColors
-    }
-    val shortXColorScheme = when {
-        darkTheme -> ShortXColorScheme(
-            checkedThumb = Color.White,
-            checkedTrack = colorScheme.primaryContainer,
-            uncheckedThumb = Color(0xFFEAEAEA),
-            uncheckedTrack = Color(0xFF777777),
-        )
+        // Remember a SystemUiController
+        val systemUiController = rememberSystemUiController()
+        val useDarkIcons = !isSystemInDarkTheme()
 
-        else -> ShortXColorScheme(
-            checkedThumb = Color.White,
-            checkedTrack = colorScheme.primary,
-            uncheckedThumb = Color(0xFFfafafa),
-            uncheckedTrack = Color(0xFFdddddd),
-        )
-    }
+        DisposableEffect(systemUiController, useDarkIcons) {
+            // Update all of the system bar colors to be transparent, and use
+            // dark icons if we're in light theme
+            systemUiController.setSystemBarsColor(
+                color = Color.Transparent,
+                darkIcons = useDarkIcons
+            )
 
-    // Remember a SystemUiController
-    val systemUiController = rememberSystemUiController()
-    val useDarkIcons = !isSystemInDarkTheme()
+            // setStatusBarColor() and setNavigationBarColor() also exist
 
-    DisposableEffect(systemUiController, useDarkIcons) {
-        // Update all of the system bar colors to be transparent, and use
-        // dark icons if we're in light theme
-        systemUiController.setSystemBarsColor(
-            color = Color.Transparent,
-            darkIcons = useDarkIcons
-        )
+            onDispose {}
+        }
 
-        // setStatusBarColor() and setNavigationBarColor() also exist
-
-        onDispose {}
-    }
-
-    CompositionLocalProvider(LocalShortXColorSchema provides shortXColorScheme) {
-        MaterialTheme(
-            colorScheme = colorScheme,
-            typography = Typography,
-            content = content
-        )
+        CompositionLocalProvider(LocalShortXColorSchema provides shortXColorScheme) {
+            MaterialTheme(
+                colorScheme = colorScheme,
+                typography = Typography,
+                content = content
+            )
+        }
     }
 }
 

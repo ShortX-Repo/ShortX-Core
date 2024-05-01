@@ -53,6 +53,8 @@ dependencies {
     implementation(libs.accompanist.placeholder.material)
     implementation(libs.accompanist.systemuicontroller)
 
+    implementation(libs.datastore.preferences)
+
     implementation(libs.swiperefreshlayout)
 
     implementation(libs.appcompat)

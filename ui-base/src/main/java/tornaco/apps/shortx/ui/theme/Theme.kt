@@ -10,9 +10,6 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
@@ -93,8 +90,7 @@ fun ShortXTheme(
     val context = LocalContext.current
 
     // Dynamic color is available on Android 12+
-    val pref = remember { ThemePref(context) }
-    val applyDynamicColor: Boolean? by pref.themeDynamicColor.collectAsState(initial = null)
+    val applyDynamicColor: Boolean = true
 
     applyDynamicColor?.let { dynamicColor ->
         val colorScheme = when {

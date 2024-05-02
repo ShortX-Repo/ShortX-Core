@@ -79,6 +79,7 @@ fun imageVectorForFact(fact: KClass<out Fact>): String {
         Fact.DeepLinkCall::class -> Remix.System.external_link_fill
         Fact.NFCTagDiscover::class -> Remix.Device.nfc_fill
         Fact.Logcat::class -> Remix.Document.newspaper_fill
+        Fact.MethodHook::class -> Remix.Development.code_box_fill
 
         else -> {
             Remix.Document.file_unknow_fill

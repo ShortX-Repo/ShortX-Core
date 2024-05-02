@@ -255,6 +255,10 @@ fun labelAndDescriptionForFactSelector(i18n: I18N, fact: KClass<out Fact>): Pair
             i18n["ui.fact.logcat"] to null
         }
 
+        Fact.MethodHook::class -> {
+            i18n["Method hook"] to null
+        }
+
         else -> "N/A" to null
     }
 }
@@ -763,6 +767,13 @@ fun labelForFact(i18N: I18N, fact: Fact): List<String> {
             listOf(
                 i18N["ui.fact.logcat"],
                 "${i18N[fact.regexMatchOptions.labelKey()]} ${fact.regex}"
+            )
+        }
+
+        is Fact.MethodHook -> {
+            listOf(
+                i18N["Method hook"],
+                "${fact.className} ${fact.methodName}$PREFIX_APP_ICON${fact.packageName}"
             )
         }
     }

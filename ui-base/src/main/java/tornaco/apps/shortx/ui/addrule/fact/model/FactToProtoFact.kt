@@ -46,6 +46,7 @@ import tornaco.apps.shortx.core.proto.fact.KeyEvent
 import tornaco.apps.shortx.core.proto.fact.LocationStatusChanged
 import tornaco.apps.shortx.core.proto.fact.Logcat
 import tornaco.apps.shortx.core.proto.fact.MediaStoreInsert
+import tornaco.apps.shortx.core.proto.fact.MethodHook
 import tornaco.apps.shortx.core.proto.fact.MobileDataStatusChanged
 import tornaco.apps.shortx.core.proto.fact.NFCStatusChanged
 import tornaco.apps.shortx.core.proto.fact.NFCTagDiscover
@@ -738,6 +739,20 @@ fun Fact.toProtoFact(
                 .setCustomContextDataKey(customContextDataKey)
                 .setRegex(regex)
                 .setRegexMatchOptions(regexMatchOptions)
+                .build()
+        }
+
+        is Fact.MethodHook -> {
+            MethodHook.newBuilder().setId(overrideId ?: id)
+                .setNote(overrideNote ?: note)
+                .setIsDisabled(isDisabled)
+                .setTag(overrideTag ?: tag)
+                .setCustomContextDataKey(customContextDataKey)
+                .setPackageName(packageName)
+                .setClassName(className)
+                .setMethodName(methodName)
+                .setBeforeMethod(beforeMethod)
+                .addAllArgExpressionsMVEL(argExpressionsMVEL)
                 .build()
         }
 

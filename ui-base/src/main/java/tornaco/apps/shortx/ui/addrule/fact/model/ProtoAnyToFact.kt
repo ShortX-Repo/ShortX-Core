@@ -1005,6 +1005,24 @@ fun ProtoAny.toFact(shortXManager: ShortXManager): Fact? {
             )
         }
 
+        this is_ tornaco.apps.shortx.core.proto.fact.MethodHook::class.java -> {
+            val data =
+                this unpack_ tornaco.apps.shortx.core.proto.fact.MethodHook::class.java
+
+            Fact.MethodHook(
+                id = data.id,
+                customContextDataKey = data.customContextDataKey,
+                note = data.note,
+                isDisabled = data.isDisabled,
+                tag = data.tag,
+                packageName = data.packageName,
+                className = data.className,
+                methodName = data.methodName,
+                beforeMethod = data.beforeMethod,
+                argExpressionsMVEL = data.argExpressionsMVELList
+            )
+        }
+
         this is_ tornaco.apps.shortx.core.proto.fact.HasFoundNodeOnScreen::class.java -> {
             val data =
                 this unpack_ tornaco.apps.shortx.core.proto.fact.HasFoundNodeOnScreen::class.java

@@ -97,6 +97,7 @@ val allFactClasses = listOf(
 
     Fact.DeepLinkCall::class,
     Fact.Logcat::class,
+    Fact.MethodHook::class,
 
 
     Fact.AnyFact::class,

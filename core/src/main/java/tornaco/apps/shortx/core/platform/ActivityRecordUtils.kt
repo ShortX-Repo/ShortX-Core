@@ -7,6 +7,7 @@ import tornaco.apps.shortx.core.platform.Classes.activityRecordClass
 import tornaco.apps.shortx.core.util.Logger
 import tornaco.apps.shortx.core.util.OsUtils
 import util.Reflections
+import util.ReflectionsExt
 
 
 object ActivityRecordUtils {
@@ -92,5 +93,30 @@ object ActivityRecordUtils {
             logger.e(e, "ActivityRecordUtils#nowVisible error")
             false
         }
+    }
+
+    private var getTaskRecordMethodName: String? = null
+
+    fun getTaskRecord(activityRecord: Any?): Any? {
+        if (activityRecord == null) return null
+
+        if (getTaskRecordMethodName != null) {
+            return Reflections.callMethod(activityRecord, getTaskRecordMethodName)
+        }
+
+        getTaskRecordMethodName = runCatching {
+            Reflections.callMethod(activityRecord, "getTask")
+            "getTask"
+        }.getOrElse {
+            logger.e("Fallback to use #getTaskRecord.")
+            "getTaskRecord"
+        }
+        return Reflections.callMethod(activityRecord, getTaskRecordMethodName)
+    }
+
+    fun getTaskId(activityRecord: Any?): Int {
+        if (activityRecord == null) return -1
+        val task = getTaskRecord(activityRecord)
+        return ReflectionsExt.getIntFieldWithPotentialNames(task, "mTaskId", "taskId")
     }
 }

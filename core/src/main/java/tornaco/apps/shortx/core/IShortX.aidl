@@ -35,7 +35,7 @@ interface IShortX {
 
     void setRuleEnabled(String ruleId, boolean enable);
 
-    List<ByteArrayWrapper> getAllRules();
+    List<ByteArrayWrapper> getAllRules(String queryId, int pageNumber, int pageSize);
     int getRuleCount();
     // Rules end
 

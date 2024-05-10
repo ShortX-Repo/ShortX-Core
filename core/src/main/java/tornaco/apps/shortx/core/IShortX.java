@@ -48,7 +48,7 @@ public interface IShortX extends android.os.IInterface
     @Override public void setRuleEnabled(java.lang.String ruleId, boolean enable) throws android.os.RemoteException
     {
     }
-    @Override public java.util.List<tornaco.apps.shortx.core.rule.action.ByteArrayWrapper> getAllRules() throws android.os.RemoteException
+    @Override public java.util.List<tornaco.apps.shortx.core.rule.action.ByteArrayWrapper> getAllRules(java.lang.String queryId, int pageNumber, int pageSize) throws android.os.RemoteException
     {
       return null;
     }
@@ -881,7 +881,13 @@ public interface IShortX extends android.os.IInterface
         case TRANSACTION_getAllRules:
         {
           data.enforceInterface(descriptor);
-          java.util.List<tornaco.apps.shortx.core.rule.action.ByteArrayWrapper> _result = this.getAllRules();
+          java.lang.String _arg0;
+          _arg0 = data.readString();
+          int _arg1;
+          _arg1 = data.readInt();
+          int _arg2;
+          _arg2 = data.readInt();
+          java.util.List<tornaco.apps.shortx.core.rule.action.ByteArrayWrapper> _result = this.getAllRules(_arg0, _arg1, _arg2);
           reply.writeNoException();
           reply.writeTypedList(_result);
           return true;
@@ -3008,16 +3014,19 @@ public interface IShortX extends android.os.IInterface
           _data.recycle();
         }
       }
-      @Override public java.util.List<tornaco.apps.shortx.core.rule.action.ByteArrayWrapper> getAllRules() throws android.os.RemoteException
+      @Override public java.util.List<tornaco.apps.shortx.core.rule.action.ByteArrayWrapper> getAllRules(java.lang.String queryId, int pageNumber, int pageSize) throws android.os.RemoteException
       {
         android.os.Parcel _data = android.os.Parcel.obtain();
         android.os.Parcel _reply = android.os.Parcel.obtain();
         java.util.List<tornaco.apps.shortx.core.rule.action.ByteArrayWrapper> _result;
         try {
           _data.writeInterfaceToken(DESCRIPTOR);
+          _data.writeString(queryId);
+          _data.writeInt(pageNumber);
+          _data.writeInt(pageSize);
           boolean _status = mRemote.transact(Stub.TRANSACTION_getAllRules, _data, _reply, 0);
           if (!_status && getDefaultImpl() != null) {
-            return getDefaultImpl().getAllRules();
+            return getDefaultImpl().getAllRules(queryId, pageNumber, pageSize);
           }
           _reply.readException();
           _result = _reply.createTypedArrayList(tornaco.apps.shortx.core.rule.action.ByteArrayWrapper.CREATOR);
@@ -7002,7 +7011,7 @@ public interface IShortX extends android.os.IInterface
   public void deleteRule(java.lang.String id) throws android.os.RemoteException;
   public tornaco.apps.shortx.core.rule.action.ByteArrayWrapper getRuleById(java.lang.String id) throws android.os.RemoteException;
   public void setRuleEnabled(java.lang.String ruleId, boolean enable) throws android.os.RemoteException;
-  public java.util.List<tornaco.apps.shortx.core.rule.action.ByteArrayWrapper> getAllRules() throws android.os.RemoteException;
+  public java.util.List<tornaco.apps.shortx.core.rule.action.ByteArrayWrapper> getAllRules(java.lang.String queryId, int pageNumber, int pageSize) throws android.os.RemoteException;
   public int getRuleCount() throws android.os.RemoteException;
   // Rules end
 

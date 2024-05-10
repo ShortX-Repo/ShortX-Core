@@ -216,9 +216,20 @@ class ShortXManager(val service: IShortX) {
 
     fun getAllRules(): List<Rule> {
         return invokeService(emptyList()) {
-            allRules.map {
-                Rule.parseFrom(it.byteData)
+            val queryId = queryId.toString()
+            logger.d("getAllRules, queryId: $queryId")
+            val count = ruleCount
+            val pageSize = QUERY_PAGE_SIZE
+            val pageCount: Int = count / pageSize + 1
+            val list = mutableListOf<Rule>().apply {
+                repeat(pageCount) { pageIndex ->
+                    addAll(getAllRules(queryId, pageIndex, pageSize).map {
+                        Rule.parseFrom(it.byteData)
+                    })
+                }
             }
+            logger.d("getAllRules-$queryId, list size: ${list.size}")
+            list
         }
     }
 

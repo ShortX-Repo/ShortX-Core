@@ -85,7 +85,7 @@ public interface IShortX extends android.os.IInterface
     {
       return null;
     }
-    @Override public java.util.List<tornaco.apps.shortx.core.rule.action.ByteArrayWrapper> getAllDirectAction() throws android.os.RemoteException
+    @Override public java.util.List<tornaco.apps.shortx.core.rule.action.ByteArrayWrapper> getAllDirectAction(java.lang.String queryId, int pageNumber, int pageSize) throws android.os.RemoteException
     {
       return null;
     }
@@ -989,7 +989,13 @@ public interface IShortX extends android.os.IInterface
         case TRANSACTION_getAllDirectAction:
         {
           data.enforceInterface(descriptor);
-          java.util.List<tornaco.apps.shortx.core.rule.action.ByteArrayWrapper> _result = this.getAllDirectAction();
+          java.lang.String _arg0;
+          _arg0 = data.readString();
+          int _arg1;
+          _arg1 = data.readInt();
+          int _arg2;
+          _arg2 = data.readInt();
+          java.util.List<tornaco.apps.shortx.core.rule.action.ByteArrayWrapper> _result = this.getAllDirectAction(_arg0, _arg1, _arg2);
           reply.writeNoException();
           reply.writeTypedList(_result);
           return true;
@@ -3214,16 +3220,19 @@ public interface IShortX extends android.os.IInterface
         }
         return _result;
       }
-      @Override public java.util.List<tornaco.apps.shortx.core.rule.action.ByteArrayWrapper> getAllDirectAction() throws android.os.RemoteException
+      @Override public java.util.List<tornaco.apps.shortx.core.rule.action.ByteArrayWrapper> getAllDirectAction(java.lang.String queryId, int pageNumber, int pageSize) throws android.os.RemoteException
       {
         android.os.Parcel _data = android.os.Parcel.obtain();
         android.os.Parcel _reply = android.os.Parcel.obtain();
         java.util.List<tornaco.apps.shortx.core.rule.action.ByteArrayWrapper> _result;
         try {
           _data.writeInterfaceToken(DESCRIPTOR);
+          _data.writeString(queryId);
+          _data.writeInt(pageNumber);
+          _data.writeInt(pageSize);
           boolean _status = mRemote.transact(Stub.TRANSACTION_getAllDirectAction, _data, _reply, 0);
           if (!_status && getDefaultImpl() != null) {
-            return getDefaultImpl().getAllDirectAction();
+            return getDefaultImpl().getAllDirectAction(queryId, pageNumber, pageSize);
           }
           _reply.readException();
           _result = _reply.createTypedArrayList(tornaco.apps.shortx.core.rule.action.ByteArrayWrapper.CREATOR);
@@ -7006,7 +7015,7 @@ public interface IShortX extends android.os.IInterface
   public void addDirectAction(tornaco.apps.shortx.core.rule.action.ByteArrayWrapper da) throws android.os.RemoteException;
   public void deleteDirectAction(java.lang.String id) throws android.os.RemoteException;
   public tornaco.apps.shortx.core.rule.action.ByteArrayWrapper getDirectActionById(java.lang.String id) throws android.os.RemoteException;
-  public java.util.List<tornaco.apps.shortx.core.rule.action.ByteArrayWrapper> getAllDirectAction() throws android.os.RemoteException;
+  public java.util.List<tornaco.apps.shortx.core.rule.action.ByteArrayWrapper> getAllDirectAction(java.lang.String queryId, int pageNumber, int pageSize) throws android.os.RemoteException;
   public int getDirectActionCount() throws android.os.RemoteException;
   public void executeDirectionActionById(tornaco.apps.shortx.core.rule.action.ByteArrayWrapper evaluateContext, java.lang.String id) throws android.os.RemoteException;
   public void executeDirectionAction(tornaco.apps.shortx.core.rule.action.ByteArrayWrapper evaluateContext, tornaco.apps.shortx.core.rule.action.ByteArrayWrapper da) throws android.os.RemoteException;

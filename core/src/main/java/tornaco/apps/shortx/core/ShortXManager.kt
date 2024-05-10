@@ -52,6 +52,7 @@ import tornaco.apps.shortx.core.settings.defaultDanmuUISettings
 import tornaco.apps.shortx.core.util.Logger
 import java.lang.reflect.Method
 import java.lang.reflect.Proxy
+import java.util.concurrent.atomic.AtomicInteger
 
 const val PROXY_SERVICE_NAME = Context.PRINT_SERVICE
 val IPC_CODE = "tornaco.apps.shortx.services.SHORTX_SERVER".hashCode()
@@ -83,6 +84,11 @@ class ShortXManager(val service: IShortX) {
     val isInstalled get() = kotlin.runCatching { service.fingerprint() != null }.getOrElse { false }
 
     companion object {
+        private val _queryId = AtomicInteger(0)
+        val queryId get() = _queryId.getAndIncrement()
+
+        const val QUERY_PAGE_SIZE = 5
+
         object HookFlags {
             const val FLAG_DISABLE_GESTURE_HOOK = "disable_gesture_hooks"
         }
@@ -280,9 +286,20 @@ class ShortXManager(val service: IShortX) {
 
     fun getAllDirectAction(): List<DirectAction> {
         return invokeService(emptyList()) {
-            allDirectAction.map {
-                DirectAction.parseFrom(it.byteData)
+            val queryId = queryId.toString()
+            logger.d("getAllDirectAction, queryId: $queryId")
+            val daCount = directActionCount
+            val pageSize = QUERY_PAGE_SIZE
+            val pageCount: Int = daCount / pageSize + 1
+            val list = mutableListOf<DirectAction>().apply {
+                repeat(pageCount) { pageIndex ->
+                    addAll(getAllDirectAction(queryId, pageIndex, pageSize).map {
+                        DirectAction.parseFrom(it.byteData)
+                    })
+                }
             }
+            logger.d("getAllDirectAction-$queryId, list size: ${list.size}")
+            list
         }
     }
 

@@ -49,7 +49,7 @@ interface IShortX {
     void addDirectAction(in ByteArrayWrapper da);
     void deleteDirectAction(String id);
     ByteArrayWrapper getDirectActionById(String id);
-    List<ByteArrayWrapper> getAllDirectAction();
+    List<ByteArrayWrapper> getAllDirectAction(String queryId, int pageNumber, int pageSize);
     int getDirectActionCount();
 
     void executeDirectionActionById(in ByteArrayWrapper evaluateContext, String id);

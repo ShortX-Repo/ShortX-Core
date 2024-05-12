@@ -114,17 +114,6 @@ class NotificationPoster(
                 }
             )
 
-            val preferredOverrideName =
-                overrideAppName.takeIf { it.isNotEmpty() } ?: overrideName
-            logger.d("preferredOverrideName: $preferredOverrideName")
-            kotlin.runCatching {
-                SystemUI.overrideNotificationAppName(
-                    context,
-                    builder,
-                    preferredOverrideName
-                )
-            }
-
             val style = NotificationCompat.BigTextStyle()
             style.bigText(message)
             style.setBigContentTitle(title)
@@ -149,6 +138,14 @@ class NotificationPoster(
                 .setOnlyAlertOnce(true)
                 .setWhen(System.currentTimeMillis())
                 .setExtras(Bundle().apply {
+                    val preferredOverrideName =
+                        overrideAppName.takeIf { it.isNotEmpty() } ?: overrideName
+                    logger.d("preferredOverrideName: $preferredOverrideName")
+                    SystemUI.overrideNotificationAppName(
+                        context,
+                        this,
+                        preferredOverrideName
+                    )
                     extrasList.forEach { putString(it.key, it.value) }
                 })
 

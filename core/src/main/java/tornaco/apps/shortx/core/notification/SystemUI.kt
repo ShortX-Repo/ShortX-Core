@@ -30,4 +30,15 @@ object SystemUI {
         )
         n.addExtras(extras)
     }
+
+    fun overrideNotificationAppName(
+        context: Context,
+        extras: Bundle,
+        name: String?
+    ) {
+        extras.putString(
+            Notification.EXTRA_SUBSTITUTE_APP_NAME,
+            name ?: context.getString(com.android.internal.R.string.android_system_label)
+        )
+    }
 }

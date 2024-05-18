@@ -1,12 +1,7 @@
-import tornaco.project.android.shortx.Configs.sxIsDebugBuild
 import tornaco.project.android.shortx.Configs.sxPackageName
-import tornaco.project.android.shortx.Configs.sxVersionCode
-import tornaco.project.android.shortx.Configs.sxVersionName
-import tornaco.project.android.shortx.Configs.sxVersionNameSuffix
 import tornaco.project.android.shortx.addAidlTask
 import java.io.FileInputStream
 import java.util.Properties
-import java.util.UUID
 
 plugins {
     alias(libs.plugins.gmazzo.buildconfig)
@@ -116,7 +111,11 @@ fun latestGitTag(): String {
 }
 
 val githubProperties = Properties()
-githubProperties.load(FileInputStream(rootProject.file("github.properties")))
+val propFile = rootProject.file("github.properties")
+if (propFile.exists()) {
+    println("load prop file: $propFile")
+    githubProperties.load(FileInputStream(propFile))
+}
 
 publishing {
     publications {

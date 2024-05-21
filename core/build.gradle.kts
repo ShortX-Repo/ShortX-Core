@@ -1,7 +1,5 @@
 import tornaco.project.android.shortx.Configs.sxPackageName
 import tornaco.project.android.shortx.addAidlTask
-import java.io.FileInputStream
-import java.util.Properties
 
 plugins {
     alias(libs.plugins.gmazzo.buildconfig)
@@ -9,8 +7,6 @@ plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.protobuf.gradle.plugin)
     alias(libs.plugins.kover)
-
-    id("maven-publish")
 }
 
 buildConfig {
@@ -95,52 +91,5 @@ protobuf {
     protoc {
         // The artifact spec for the Protobuf Compiler
         artifact = "com.google.protobuf:protoc:3.25.2"
-    }
-}
-
-
-val GROUP_ID = "shortx"
-val ARTIFACT_ID = "core"
-val VERSION = latestGitTag().ifEmpty { "1.0.0" }
-
-fun latestGitTag(): String {
-    val process = ProcessBuilder("git", "describe", "--tags", "--abbrev=0").start()
-    return process.inputStream.bufferedReader().use { bufferedReader ->
-        bufferedReader.readText().trim()
-    }
-}
-
-val githubProperties = Properties()
-val propFile = rootProject.file("github.properties")
-if (propFile.exists()) {
-    println("load prop file: $propFile")
-    githubProperties.load(FileInputStream(propFile))
-}
-
-publishing {
-    publications {
-        register<MavenPublication>("release") {
-            groupId = GROUP_ID
-            artifactId = ARTIFACT_ID
-            version = VERSION
-
-            afterEvaluate {
-                from(components["java"])
-            }
-        }
-    }
-
-    repositories {
-        maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/ShortX-Repo/ShortX-Core")
-
-            credentials {
-                username =
-                    ((githubProperties["gpr.usr"] ?: System.getenv("GPR_USER")) ?: "").toString()
-                password =
-                    ((githubProperties["gpr.key"] ?: System.getenv("GPR_API_KEY")) ?: "").toString()
-            }
-        }
     }
 }

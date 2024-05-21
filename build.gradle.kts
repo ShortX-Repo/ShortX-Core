@@ -1,7 +1,9 @@
+import com.android.build.gradle.api.AndroidBasePlugin
 import tornaco.project.android.shortx.Configs
 import tornaco.project.android.shortx.Configs.sxIsDebugBuild
 import tornaco.project.android.shortx.Configs.sxVersionCode
 import tornaco.project.android.shortx.Configs.sxVersionName
+import tornaco.project.android.shortx.GPR
 import tornaco.project.android.shortx.log
 
 buildscript {
@@ -30,6 +32,7 @@ plugins {
     alias(libs.plugins.kover) apply false
 
     id("shortx")
+    id("maven-publish")
 }
 
 androidGitVersion {
@@ -98,4 +101,56 @@ subprojects {
             targetCompatibility = androidTargetCompatibility
         }
     }
+    project.afterEvaluate {
+        val hasAndroidPlugin = project.plugins.hasPlugin(AndroidBasePlugin::class)
+        log("Check publishing subproject: ${project.name}, hasAndroidPlugin: $hasAndroidPlugin")
+        val publishingModules = listOf(
+            "core",
+            "ui-base",
+            "external:utils",
+            "external:dateformatter",
+            "external:reorderable",
+            "external:picasso",
+            "external:compose-color-picker",
+            "external:icons",
+            "external:dex-maker",
+            "external:rhino-android",
+            "external:drawbox",
+            "external:codeditor"
+        )
+        if (publishingModules.contains(project.name)) {
+            val GROUP_ID = "shortx"
+            val ARTIFACT_ID = project.path.removePrefix(":").replace(":", "-")
+            val VERSION = Configs.latestGitTag().ifEmpty { "1.0.0" }
+
+            project.plugins.apply("maven-publish")
+            publishing {
+                publications {
+                    register<MavenPublication>("release") {
+                        groupId = GROUP_ID
+                        artifactId = ARTIFACT_ID
+                        version = VERSION
+
+                        afterEvaluate {
+                            from(components[if (hasAndroidPlugin) "release" else "java"])
+                        }
+                    }
+                }
+
+                repositories {
+                    maven {
+                        name = "GitHubPackages"
+                        url = uri("https://maven.pkg.github.com/ShortX-Repo/ShortX-Core")
+
+                        credentials {
+                            username = GPR(project).userName
+                            password = GPR(project).password
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+
 }

@@ -13,6 +13,8 @@ import tornaco.apps.shortx.core.util.Logger
 import tornaco.apps.shortx.core.util.mapToString
 import tornaco.apps.shortx.core.util.read
 import tornaco.apps.shortx.core.util.writeInlined
+import tornaco.apps.shortx.services.proto.Settings
+import tornaco.apps.shortx.services.proto.StringMap
 import java.io.File
 
 open class BaseSettingsStore(
@@ -59,7 +61,7 @@ open class BaseSettingsStore(
         }
         kotlin.runCatching {
             val settings = atomicStoreFile.read {
-                tornaco.apps.shortx.services.proto.Settings.parseDelimitedFrom(it)
+                Settings.parseDelimitedFrom(it)
             }
             settings.run {
                 stringCache.putAll(stringSettingsMap)
@@ -151,7 +153,7 @@ open class BaseSettingsStore(
 
     private suspend fun write() = withContext(Dispatchers.IO) {
         logger.d("write.")
-        val settings = tornaco.apps.shortx.services.proto.Settings.newBuilder().apply {
+        val settings = Settings.newBuilder().apply {
             putAllStringSettings(stringCache)
             putAllBoolSettings(boolCache)
             putAllIntSettings(intCache)
@@ -160,7 +162,7 @@ open class BaseSettingsStore(
             stringMapCache.forEach {
                 putStringMapSettings(
                     it.key,
-                    tornaco.apps.shortx.services.proto.StringMap.newBuilder().putAllData(it.value)
+                    StringMap.newBuilder().putAllData(it.value)
                         .build()
                 )
             }

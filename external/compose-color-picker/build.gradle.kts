@@ -31,5 +31,5 @@ dependencies {
     implementation(libs.compose.material3)
     implementation(libs.compose.material)
 
-    implementation("com.github.ajalt.colormath:colormath:3.4.0")
+    implementation("com.github.ajalt.colormath:colormath:3.5.0")
 }

@@ -108,16 +108,16 @@ subprojects {
         val publishingModules = listOf(
             "core",
             "ui-base",
-            "external:utils",
-            "external:dateformatter",
-            "external:reorderable",
-            "external:picasso",
-            "external:compose-color-picker",
-            "external:icons",
-            "external:dex-maker",
-            "external:rhino-android",
-            "external:drawbox",
-            "external:codeditor"
+            "utils",
+            "dateformatter",
+            "reorderable",
+            "picasso",
+            "compose-color-picker",
+            "icons",
+            "dex-maker",
+            "rhino-android",
+            "drawbox",
+            "codeditor"
         )
         if (publishingModules.contains(project.name)) {
             val GROUP_ID = "shortx"

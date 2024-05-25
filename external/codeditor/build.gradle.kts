@@ -21,10 +21,6 @@ android {
         viewBinding = true
         dataBinding = true
     }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
-    }
 }
 
 dependencies {

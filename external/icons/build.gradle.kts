@@ -22,10 +22,6 @@ android {
         viewBinding = false
         dataBinding = false
     }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
-    }
 }
 dependencies {
     testImplementation(libs.junit)

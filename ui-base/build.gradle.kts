@@ -35,7 +35,6 @@ dependencies {
     implementation(libs.glide)
     kapt(libs.glide.compiler)
 
-    implementation(platform(libs.compose.bom))
     implementation(libs.compose.ui)
     implementation(libs.compose.ui.tooling.preview)
     implementation(libs.compose.material3)

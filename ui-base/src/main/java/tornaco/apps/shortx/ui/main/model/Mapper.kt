@@ -61,7 +61,8 @@ fun <T> ContextViewModel<T>.daToDirectActionUM(
             it == directAction.id
         },
         directAction = directAction,
-        versionCode = directAction.versionCode
+        versionCode = directAction.versionCode,
+        hasAnyParameter = directAction.parametersList.isNotEmpty()
     )
 }
 

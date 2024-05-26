@@ -15,6 +15,9 @@ data class DirectActionUM(
     val iconColor: ULong,
     val runningInsCount: Int,
 
+    // Params
+    val hasAnyParameter: Boolean,
+
     // For discover
     val directAction: DirectAction,
     val versionCode: Long,

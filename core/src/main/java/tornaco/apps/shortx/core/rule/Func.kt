@@ -1,5 +1,6 @@
 package tornaco.apps.shortx.core.rule
 
+import tornaco.apps.shortx.core.proto.func.FuncParameter
 import tornaco.apps.shortx.core.proto.func.FuncParameterInput
 import tornaco.apps.shortx.core.util.Logger
 import tornaco.apps.shortx.core.util.replaceLazy
@@ -28,3 +29,10 @@ fun String.replaceFuncParameterInputs(funcParameters: List<FuncParameterInput>):
         }
     return strWithParamValue
 }
+
+fun FuncParameter.asDefaultInput() = FuncParameterInput.newBuilder()
+    .setName(this.name)
+    .setValue(this.defaultValue)
+    .build()
+
+fun FuncParameterInput.toLogString() = "${name}-${value}"

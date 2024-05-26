@@ -6,6 +6,7 @@ option java_multiple_files = true;
 
 import "google/protobuf/any.proto";
 import "shortx/Common.proto";
+import "shortx/Functions.proto";
 
 message DirectActionSet {
   string id = 1;
@@ -43,6 +44,8 @@ message DirectAction {
   repeated StringPair extras = 10;
 
   string directActionSetId = 11;
+
+  repeated FuncParameter parameters = 12;
 }
 
 message DirectActionList {

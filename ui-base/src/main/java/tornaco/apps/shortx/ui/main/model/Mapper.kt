@@ -26,7 +26,7 @@ import tornaco.apps.shortx.ui.base.ContextViewModel
 import java.util.Date
 
 
-fun <T> ContextViewModel<T>.daToDirectActionUM(
+fun ContextViewModel<*, *>.daToDirectActionUM(
     directAction: DirectAction,
     activeJobs: List<String>,
     globalVars: List<GlobalVar>
@@ -66,7 +66,10 @@ fun <T> ContextViewModel<T>.daToDirectActionUM(
     )
 }
 
-private fun <T> ContextViewModel<T>.translateDA(da: DirectAction, globalVars: List<GlobalVar>) =
+private fun ContextViewModel<*, *>.translateDA(
+    da: DirectAction,
+    globalVars: List<GlobalVar>
+) =
     da.description
         .replaceGlobalVarValues { globalVars }
         .fallbackOnEmpty(da.actionsList.mapNotNull {
@@ -75,7 +78,7 @@ private fun <T> ContextViewModel<T>.translateDA(da: DirectAction, globalVars: Li
             labelAndDescriptionForActionSelector(i18N, it::class).first
         })
 
-fun <T> ContextViewModel<T>.ruleToRuleUM(
+fun ContextViewModel<*, *>.ruleToRuleUM(
     rule: Rule,
     activeJobs: List<String>,
     globalVars: List<GlobalVar>
@@ -126,7 +129,7 @@ fun <T> ContextViewModel<T>.ruleToRuleUM(
     )
 }
 
-fun <T> ContextViewModel<T>.translateRule(rule: Rule): String {
+fun ContextViewModel<*, *>.translateRule(rule: Rule): String {
     val fact: String = rule.factsList
         .mapNotNull { factProto ->
             factProto.toFact(shortXManager)?.let { fact ->

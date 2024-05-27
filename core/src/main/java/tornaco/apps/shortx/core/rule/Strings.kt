@@ -8,10 +8,10 @@ import tornaco.apps.shortx.core.proto.gv.GlobalVar
 
 fun String.compileContextAndVars(cv: RuleContextAndVars): String {
     return with(cv) {
-        inflateContextMap(contextData)
+        replaceFuncParameterInputs(cv.funcParameters)
+            .inflateContextMap(contextData)
             .replaceLocalVarValues(localVars)
             .replaceGlobalVarValues(globalVarsLazy)
-            .replaceFuncParameterInputs(cv.funcParameters)
     }
 }
 

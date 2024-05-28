@@ -843,6 +843,7 @@ fun Action.toProtoAction(overrideId: String? = null, overrideNote: String? = nul
                 .setCustomContextDataKey(contextData.toCustomContextDataKey())
                 .setDaId(daId)
                 .setNote(overrideNote ?: note)
+                .addAllFuncParameterInputs(parameterInputs)
                 .build()
         }
 

@@ -717,6 +717,7 @@ message NotificationButton {
 
 message FromDA {
   string daId = 1;
+  repeated FuncParameterInput funcParameterInputs = 2;
 
   CustomContextDataKey customContextDataKey = 96;
   ActionOnError actionOnError = 97;

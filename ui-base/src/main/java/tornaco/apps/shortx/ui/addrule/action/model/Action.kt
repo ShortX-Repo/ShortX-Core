@@ -34,6 +34,8 @@ import tornaco.apps.shortx.core.proto.common.ScreenRotateDegree
 import tornaco.apps.shortx.core.proto.common.StringPair
 import tornaco.apps.shortx.core.proto.common.TextFieldProp
 import tornaco.apps.shortx.core.proto.common.VolumeDirection
+import tornaco.apps.shortx.core.proto.func.FuncParameter
+import tornaco.apps.shortx.core.proto.func.FuncParameterInput
 import tornaco.apps.shortx.core.proto.gv.GlobalVar
 import tornaco.apps.shortx.core.proto.gv.LocalVar
 import tornaco.apps.shortx.core.proto.pkgset.PkgSet
@@ -1998,7 +2000,9 @@ sealed interface Action : Parcelable {
         override val note: String = "",
         val daId: String,
         val title: String?,
-        val description: String?
+        val description: String?,
+        val parameterInputs: List<FuncParameterInput>,
+        val parameters: List<FuncParameter>
     ) : Action {
         override fun clone(
             id: String,

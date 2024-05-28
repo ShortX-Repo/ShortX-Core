@@ -980,7 +980,9 @@ fun ProtoAny.toAction(shortXManager: ShortXManager): Action? {
                 id = data.id,
                 note = data.note, daId = data.daId,
                 title = da?.title,
-                description = da?.description
+                description = da?.description,
+                parameterInputs = data.funcParameterInputsList ?: emptyList(),
+                parameters = da?.parametersList ?: emptyList()
             )
         }
 

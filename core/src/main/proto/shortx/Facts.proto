@@ -812,7 +812,7 @@ message MethodHook {
   // true before, false after
   bool beforeMethod = 4;
 
-  repeated string argExpressionsMVEL = 5;
+  repeated MethodHookExpressions expressions = 5;
 
   MethodHookLifecycle lifecycle = 6;
 
@@ -824,6 +824,11 @@ message MethodHook {
 }
 
 enum MethodHookLifecycle {
-    InitZygote = 0;
-    LoadedPackage = 2;
+  InitZygote = 0;
+  LoadedPackage = 2;
+}
+
+message MethodHookExpressions {
+  string expressionMVEL = 1;
+  string contextKey = 2;
 }

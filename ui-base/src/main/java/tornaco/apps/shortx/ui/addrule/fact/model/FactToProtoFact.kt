@@ -752,7 +752,7 @@ fun Fact.toProtoFact(
                 .setClassName(className)
                 .setMethodName(methodName)
                 .setBeforeMethod(beforeMethod)
-                .addAllArgExpressionsMVEL(argExpressionsMVEL)
+                .addAllExpressions(expressions)
                 .setLifecycle(lifecycle)
                 .build()
         }

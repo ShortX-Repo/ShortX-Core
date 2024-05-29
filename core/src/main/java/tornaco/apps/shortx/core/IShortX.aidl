@@ -315,4 +315,10 @@ interface IShortX {
     // Swipe gesture.
     float getSwipeLengthScale();
     void setSwipeLengthScale(float scale);
+
+    // Custom hook
+    void onHookedMethodCalled(in ByteArrayWrapper hook, in List<ByteArrayWrapper> methodArgs);
+    ParcelFileDescriptor getMethodHookLogFD();
+    String getMethodHookLogPath();
+    void clearMethodHookLogs();
 }

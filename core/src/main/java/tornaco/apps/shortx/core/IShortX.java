@@ -682,6 +682,21 @@ public interface IShortX extends android.os.IInterface
     @Override public void setSwipeLengthScale(float scale) throws android.os.RemoteException
     {
     }
+    // Custom hook
+    @Override public void onHookedMethodCalled(tornaco.apps.shortx.core.rule.action.ByteArrayWrapper hook, java.util.List<tornaco.apps.shortx.core.rule.action.ByteArrayWrapper> methodArgs) throws android.os.RemoteException
+    {
+    }
+    @Override public android.os.ParcelFileDescriptor getMethodHookLogFD() throws android.os.RemoteException
+    {
+      return null;
+    }
+    @Override public java.lang.String getMethodHookLogPath() throws android.os.RemoteException
+    {
+      return null;
+    }
+    @Override public void clearMethodHookLogs() throws android.os.RemoteException
+    {
+    }
     @Override
     public android.os.IBinder asBinder() {
       return null;
@@ -2260,6 +2275,36 @@ public interface IShortX extends android.os.IInterface
           float _arg0;
           _arg0 = data.readFloat();
           this.setSwipeLengthScale(_arg0);
+          reply.writeNoException();
+          break;
+        }
+        case TRANSACTION_onHookedMethodCalled:
+        {
+          tornaco.apps.shortx.core.rule.action.ByteArrayWrapper _arg0;
+          _arg0 = _Parcel.readTypedObject(data, tornaco.apps.shortx.core.rule.action.ByteArrayWrapper.CREATOR);
+          java.util.List<tornaco.apps.shortx.core.rule.action.ByteArrayWrapper> _arg1;
+          _arg1 = data.createTypedArrayList(tornaco.apps.shortx.core.rule.action.ByteArrayWrapper.CREATOR);
+          this.onHookedMethodCalled(_arg0, _arg1);
+          reply.writeNoException();
+          break;
+        }
+        case TRANSACTION_getMethodHookLogFD:
+        {
+          android.os.ParcelFileDescriptor _result = this.getMethodHookLogFD();
+          reply.writeNoException();
+          _Parcel.writeTypedObject(reply, _result, android.os.Parcelable.PARCELABLE_WRITE_RETURN_VALUE);
+          break;
+        }
+        case TRANSACTION_getMethodHookLogPath:
+        {
+          java.lang.String _result = this.getMethodHookLogPath();
+          reply.writeNoException();
+          reply.writeString(_result);
+          break;
+        }
+        case TRANSACTION_clearMethodHookLogs:
+        {
+          this.clearMethodHookLogs();
           reply.writeNoException();
           break;
         }
@@ -5326,6 +5371,71 @@ public interface IShortX extends android.os.IInterface
           _data.recycle();
         }
       }
+      // Custom hook
+      @Override public void onHookedMethodCalled(tornaco.apps.shortx.core.rule.action.ByteArrayWrapper hook, java.util.List<tornaco.apps.shortx.core.rule.action.ByteArrayWrapper> methodArgs) throws android.os.RemoteException
+      {
+        android.os.Parcel _data = android.os.Parcel.obtain();
+        android.os.Parcel _reply = android.os.Parcel.obtain();
+        try {
+          _data.writeInterfaceToken(DESCRIPTOR);
+          _Parcel.writeTypedObject(_data, hook, 0);
+          _Parcel.writeTypedList(_data, methodArgs, 0);
+          boolean _status = mRemote.transact(Stub.TRANSACTION_onHookedMethodCalled, _data, _reply, 0);
+          _reply.readException();
+        }
+        finally {
+          _reply.recycle();
+          _data.recycle();
+        }
+      }
+      @Override public android.os.ParcelFileDescriptor getMethodHookLogFD() throws android.os.RemoteException
+      {
+        android.os.Parcel _data = android.os.Parcel.obtain();
+        android.os.Parcel _reply = android.os.Parcel.obtain();
+        android.os.ParcelFileDescriptor _result;
+        try {
+          _data.writeInterfaceToken(DESCRIPTOR);
+          boolean _status = mRemote.transact(Stub.TRANSACTION_getMethodHookLogFD, _data, _reply, 0);
+          _reply.readException();
+          _result = _Parcel.readTypedObject(_reply, android.os.ParcelFileDescriptor.CREATOR);
+        }
+        finally {
+          _reply.recycle();
+          _data.recycle();
+        }
+        return _result;
+      }
+      @Override public java.lang.String getMethodHookLogPath() throws android.os.RemoteException
+      {
+        android.os.Parcel _data = android.os.Parcel.obtain();
+        android.os.Parcel _reply = android.os.Parcel.obtain();
+        java.lang.String _result;
+        try {
+          _data.writeInterfaceToken(DESCRIPTOR);
+          boolean _status = mRemote.transact(Stub.TRANSACTION_getMethodHookLogPath, _data, _reply, 0);
+          _reply.readException();
+          _result = _reply.readString();
+        }
+        finally {
+          _reply.recycle();
+          _data.recycle();
+        }
+        return _result;
+      }
+      @Override public void clearMethodHookLogs() throws android.os.RemoteException
+      {
+        android.os.Parcel _data = android.os.Parcel.obtain();
+        android.os.Parcel _reply = android.os.Parcel.obtain();
+        try {
+          _data.writeInterfaceToken(DESCRIPTOR);
+          boolean _status = mRemote.transact(Stub.TRANSACTION_clearMethodHookLogs, _data, _reply, 0);
+          _reply.readException();
+        }
+        finally {
+          _reply.recycle();
+          _data.recycle();
+        }
+      }
     }
     static final int TRANSACTION_version = (android.os.IBinder.FIRST_CALL_TRANSACTION + 0);
     static final int TRANSACTION_fingerprint = (android.os.IBinder.FIRST_CALL_TRANSACTION + 1);
@@ -5511,6 +5621,10 @@ public interface IShortX extends android.os.IInterface
     static final int TRANSACTION_unregisterNFCTagEndpointListener = (android.os.IBinder.FIRST_CALL_TRANSACTION + 181);
     static final int TRANSACTION_getSwipeLengthScale = (android.os.IBinder.FIRST_CALL_TRANSACTION + 182);
     static final int TRANSACTION_setSwipeLengthScale = (android.os.IBinder.FIRST_CALL_TRANSACTION + 183);
+    static final int TRANSACTION_onHookedMethodCalled = (android.os.IBinder.FIRST_CALL_TRANSACTION + 184);
+    static final int TRANSACTION_getMethodHookLogFD = (android.os.IBinder.FIRST_CALL_TRANSACTION + 185);
+    static final int TRANSACTION_getMethodHookLogPath = (android.os.IBinder.FIRST_CALL_TRANSACTION + 186);
+    static final int TRANSACTION_clearMethodHookLogs = (android.os.IBinder.FIRST_CALL_TRANSACTION + 187);
   }
   public static final java.lang.String DESCRIPTOR = "tornaco.apps.shortx.core.IShortX";
   public tornaco.apps.shortx.core.Version version() throws android.os.RemoteException;
@@ -5735,6 +5849,11 @@ public interface IShortX extends android.os.IInterface
   // Swipe gesture.
   public float getSwipeLengthScale() throws android.os.RemoteException;
   public void setSwipeLengthScale(float scale) throws android.os.RemoteException;
+  // Custom hook
+  public void onHookedMethodCalled(tornaco.apps.shortx.core.rule.action.ByteArrayWrapper hook, java.util.List<tornaco.apps.shortx.core.rule.action.ByteArrayWrapper> methodArgs) throws android.os.RemoteException;
+  public android.os.ParcelFileDescriptor getMethodHookLogFD() throws android.os.RemoteException;
+  public java.lang.String getMethodHookLogPath() throws android.os.RemoteException;
+  public void clearMethodHookLogs() throws android.os.RemoteException;
   /** @hide */
   static class _Parcel {
     static private <T> T readTypedObject(

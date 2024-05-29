@@ -25,12 +25,14 @@ import tornaco.apps.shortx.core.proto.common.Ringtone
 import tornaco.apps.shortx.core.proto.common.SensorUsage
 import tornaco.apps.shortx.core.proto.common.ShellRes
 import tornaco.apps.shortx.core.proto.common.StatusBarTileSetting
+import tornaco.apps.shortx.core.proto.common.StringPair
 import tornaco.apps.shortx.core.proto.common.SystemSettingsAccessRecord
 import tornaco.apps.shortx.core.proto.common.UserInfo
 import tornaco.apps.shortx.core.proto.common.WifiConfig
 import tornaco.apps.shortx.core.proto.da.DirectAction
 import tornaco.apps.shortx.core.proto.da.DirectActionSet
 import tornaco.apps.shortx.core.proto.fact.Edge
+import tornaco.apps.shortx.core.proto.fact.MethodHook
 import tornaco.apps.shortx.core.proto.gv.GlobalVar
 import tornaco.apps.shortx.core.proto.pkgset.PkgSet
 import tornaco.apps.shortx.core.proto.rule.ActionEvaluateRecord
@@ -1272,6 +1274,26 @@ class ShortXManager(val service: IShortX) {
         invokeService(Unit) {
             unregisterNFCTagEndpointListener(listener)
         }
+    }
+
+    fun onHookedMethodCalled(methodHook: MethodHook, methodArgs: List<StringPair>) {
+        invokeService(Unit) {
+            onHookedMethodCalled(ByteArrayWrapper(methodHook.toByteArray()), methodArgs.map {
+                ByteArrayWrapper(it.toByteArray())
+            })
+        }
+    }
+
+    fun getMethodHookLogFD(): ParcelFileDescriptor? = invokeService(null) {
+        methodHookLogFD
+    }
+
+    fun getMethodHookLogPath(): String = invokeService("ERROR") {
+        methodHookLogPath
+    }
+
+    fun clearMethodHookLogs() = invokeService(Unit) {
+        clearMethodHookLogs()
     }
 
     private inline fun <T> invokeService(defaultValue: T, onService: IShortX.() -> T): T {

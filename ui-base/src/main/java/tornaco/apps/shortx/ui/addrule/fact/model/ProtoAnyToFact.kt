@@ -1019,7 +1019,8 @@ fun ProtoAny.toFact(shortXManager: ShortXManager): Fact? {
                 className = data.className,
                 methodName = data.methodName,
                 beforeMethod = data.beforeMethod,
-                argExpressionsMVEL = data.argExpressionsMVELList
+                argExpressionsMVEL = data.argExpressionsMVELList,
+                lifecycle = data.lifecycle
             )
         }
 

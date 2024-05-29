@@ -17,6 +17,7 @@ import tornaco.apps.shortx.core.proto.common.StringPair
 import tornaco.apps.shortx.core.proto.common.TimeOfADay
 import tornaco.apps.shortx.core.proto.fact.Edge
 import tornaco.apps.shortx.core.proto.fact.Gesture
+import tornaco.apps.shortx.core.proto.fact.MethodHookLifecycle
 import tornaco.apps.shortx.core.proto.fact.Notification
 import tornaco.apps.shortx.core.proto.fact.RepeatDays
 import tornaco.apps.shortx.core.proto.pkgset.PkgSet
@@ -2123,6 +2124,7 @@ sealed interface Fact : Parcelable {
         val methodName: String,
         val beforeMethod: Boolean,
         val argExpressionsMVEL: List<String>,
+        val lifecycle: MethodHookLifecycle,
     ) : Fact {
         override fun clone(
             id: String,

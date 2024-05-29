@@ -125,7 +125,8 @@ fun ContextViewModel<*, *>.ruleToRuleUM(
         runningInsCount = activeJobs.count {
             it == rule.id
         },
-        versionCode = rule.versionCode
+        versionCode = rule.versionCode,
+        hasAnyParameter = rule.parametersList.isNotEmpty()
     )
 }
 

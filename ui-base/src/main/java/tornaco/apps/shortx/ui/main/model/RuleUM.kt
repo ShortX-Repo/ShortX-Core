@@ -17,6 +17,9 @@ data class RuleUM(
     val rule: Rule,
     val versionCode: Long,
 
+    // Params
+    val hasAnyParameter: Boolean,
+
     // For online.
     val author: String = "ShortX",
     val isOnlineItem: Boolean = false,

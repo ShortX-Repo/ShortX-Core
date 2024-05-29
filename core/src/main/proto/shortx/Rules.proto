@@ -7,6 +7,7 @@ option java_multiple_files = true;
 import "google/protobuf/any.proto";
 import "shortx/Common.proto";
 import "shortx/Conditions.proto";
+import "shortx/Functions.proto";
 
 message RuleSet {
   string id = 1;
@@ -59,6 +60,8 @@ message Rule {
 
   // Geeks options
   google.protobuf.Any ruleInstanceIdGenerator = 21;
+
+  repeated FuncParameter parameters = 22;
 }
 
 message RuleInstanceIdGenerator_Static {

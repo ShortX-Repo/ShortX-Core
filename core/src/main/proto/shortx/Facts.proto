@@ -816,6 +816,8 @@ message MethodHook {
 
   MethodHookLifecycle lifecycle = 6;
 
+  repeated google.protobuf.Any constraint = 7;
+
   string tag = 97;
   CustomContextDataKey customContextDataKey = 98;
   string note = 99;
@@ -831,4 +833,16 @@ enum MethodHookLifecycle {
 message MethodHookExpressions {
   string expressionMVEL = 1;
   string contextKey = 2;
+}
+
+message MethodHookConstraintParamsCount {
+  int32 count = 1;
+}
+
+message MethodHookConstraintParamsType {
+  repeated string type = 1;
+}
+
+message MethodHookConstraintReturnType {
+  string type = 1;
 }

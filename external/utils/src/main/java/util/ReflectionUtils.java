@@ -240,7 +240,7 @@ public class ReflectionUtils {
      * @return the cached array of methods
      * @see Class#getDeclaredMethods()
      */
-    private static Method[] getDeclaredMethods(Class<?> clazz) {
+    public static Method[] getDeclaredMethods(Class<?> clazz) {
         Method[] result = DECLARED_METHODS_CACHE.get(clazz);
         if (result == null) {
             Method[] declaredMethods = clazz.getDeclaredMethods();

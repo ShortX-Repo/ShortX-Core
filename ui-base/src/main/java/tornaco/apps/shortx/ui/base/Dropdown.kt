@@ -17,6 +17,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -59,38 +60,40 @@ fun <T> DropdownSelector(
     onSelect: (DropdownItem<T>) -> Unit,
 ) {
     DropdownMenu(
-        modifier = Modifier.fillMaxWidth(widthFraction),
+        modifier = Modifier.fillMaxWidth(widthFraction).clip(ShortXCardRoundedCornerShape),
         expanded = state.isMenuOpen,
         onDismissRequest = {
             state.close()
         },
     ) {
         items.forEach { dropdownItem ->
-            DropdownMenuItem(text = {
-                Row(verticalAlignment = CenterVertically) {
-                    dropdownItem.icon.invoke()
-                    Spacer(modifier = Modifier.size(8.dp))
-                    Column(modifier = Modifier.padding(vertical = 4.dp)) {
-                        Text(
-                            text = dropdownItem.labelLines[0],
-                            style = MaterialTheme.typography.titleSmall
-                        )
-                        dropdownItem.badge?.let { OutlineBadge(text = it) }
-                        if (dropdownItem.labelLines.size > 1) {
-                            dropdownItem.labelLines.subList(1, dropdownItem.labelLines.size)
-                                .forEach {
-                                    Text(
-                                        text = it,
-                                        style = MaterialTheme.typography.bodySmall.copy(fontSize = 10.sp)
-                                    )
-                                }
+            DropdownMenuItem(
+                modifier = Modifier.clip(ShortXCardRoundedCornerShape),
+                text = {
+                    Row(verticalAlignment = CenterVertically) {
+                        dropdownItem.icon.invoke()
+                        Spacer(modifier = Modifier.size(8.dp))
+                        Column(modifier = Modifier.padding(vertical = 4.dp)) {
+                            Text(
+                                text = dropdownItem.labelLines[0],
+                                style = MaterialTheme.typography.titleSmall
+                            )
+                            dropdownItem.badge?.let { OutlineBadge(text = it) }
+                            if (dropdownItem.labelLines.size > 1) {
+                                dropdownItem.labelLines.subList(1, dropdownItem.labelLines.size)
+                                    .forEach {
+                                        Text(
+                                            text = it,
+                                            style = MaterialTheme.typography.bodySmall.copy(fontSize = 10.sp)
+                                        )
+                                    }
+                            }
                         }
                     }
-                }
-            }, onClick = {
-                state.close()
-                onSelect(dropdownItem)
-            })
+                }, onClick = {
+                    state.close()
+                    onSelect(dropdownItem)
+                })
         }
     }
 }

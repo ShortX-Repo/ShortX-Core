@@ -17,11 +17,17 @@ import tornaco.apps.shortx.core.proto.common.StringPair
 import tornaco.apps.shortx.core.proto.common.TimeOfADay
 import tornaco.apps.shortx.core.proto.fact.Edge
 import tornaco.apps.shortx.core.proto.fact.Gesture
+import tornaco.apps.shortx.core.proto.fact.MethodHookConstraintParamsCount
+import tornaco.apps.shortx.core.proto.fact.MethodHookConstraintParamsType
+import tornaco.apps.shortx.core.proto.fact.MethodHookConstraintReturnType
 import tornaco.apps.shortx.core.proto.fact.MethodHookExpressions
 import tornaco.apps.shortx.core.proto.fact.MethodHookLifecycle
-import tornaco.apps.shortx.core.proto.fact.Notification
 import tornaco.apps.shortx.core.proto.fact.RepeatDays
 import tornaco.apps.shortx.core.proto.pkgset.PkgSet
+import tornaco.apps.shortx.core.rule.ProtoAny
+import tornaco.apps.shortx.core.rule.is_
+import tornaco.apps.shortx.core.rule.pack_
+import tornaco.apps.shortx.core.rule.unpack_
 import tornaco.apps.shortx.ui.addrule.ContextData
 import tornaco.apps.shortx.ui.addrule.factContextData
 import java.util.UUID
@@ -2125,7 +2131,8 @@ sealed interface Fact : Parcelable {
         val methodName: String,
         val beforeMethod: Boolean,
         val lifecycle: MethodHookLifecycle,
-        val expressions: List<MethodHookExpressions>
+        val expressions: List<MethodHookExpressions>,
+        val constraints: List<Constraint>
     ) : Fact {
         override fun clone(
             id: String,
@@ -2141,6 +2148,48 @@ sealed interface Fact : Parcelable {
                 isDisabled = isDisabled,
                 customContextDataKey = customContextDataKey
             )
+        }
+
+        sealed interface Constraint : Parcelable {
+            @Parcelize
+            data class ParamsType(val types: List<String>) : Constraint
+
+            @Parcelize
+            data class ParamsCount(val count: Int) : Constraint
+
+            @Parcelize
+            data class ReturnType(val type: String) : Constraint
+        }
+
+        companion object {
+            fun Constraint.toProto(): ProtoAny {
+                return when (this) {
+                    is Constraint.ParamsCount -> {
+                        MethodHookConstraintParamsCount.newBuilder().setCount(count).build().pack_()
+                    }
+
+                    is Constraint.ParamsType -> {
+                        MethodHookConstraintParamsType.newBuilder().addAllType(types).build()
+                            .pack_()
+                    }
+
+                    is Constraint.ReturnType -> {
+                        MethodHookConstraintReturnType.newBuilder().setType(type).build().pack_()
+                    }
+                }
+            }
+
+            fun ProtoAny.toConstraint(): Constraint? {
+                return if (this is_ MethodHookConstraintParamsCount::class.java) {
+                    Constraint.ParamsCount((this unpack_ MethodHookConstraintParamsCount::class.java).count)
+                } else if (this is_ MethodHookConstraintParamsType::class.java) {
+                    Constraint.ParamsType((this unpack_ MethodHookConstraintParamsType::class.java).typeList)
+                } else if (this is_ MethodHookConstraintReturnType::class.java) {
+                    Constraint.ReturnType((this unpack_ MethodHookConstraintReturnType::class.java).type)
+                } else {
+                    null
+                }
+            }
         }
     }
 

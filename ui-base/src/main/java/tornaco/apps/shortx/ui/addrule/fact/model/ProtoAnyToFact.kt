@@ -9,6 +9,7 @@ import tornaco.apps.shortx.core.proto.fact.NodeMatcherViewId
 import tornaco.apps.shortx.core.rule.ProtoAny
 import tornaco.apps.shortx.core.rule.is_
 import tornaco.apps.shortx.core.rule.unpack_
+import tornaco.apps.shortx.ui.addrule.fact.model.Fact.MethodHook.Companion.toConstraint
 import tornaco.apps.shortx.ui.addrule.protoPkgsAndPkgSetsToModels
 
 
@@ -1020,7 +1021,10 @@ fun ProtoAny.toFact(shortXManager: ShortXManager): Fact? {
                 methodName = data.methodName,
                 beforeMethod = data.beforeMethod,
                 expressions = data.expressionsList,
-                lifecycle = data.lifecycle
+                lifecycle = data.lifecycle,
+                constraints = data.constraintList.mapNotNull {
+                    it.toConstraint()
+                }
             )
         }
 

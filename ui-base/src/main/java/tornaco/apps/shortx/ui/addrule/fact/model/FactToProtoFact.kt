@@ -76,6 +76,7 @@ import tornaco.apps.shortx.core.proto.fact.WifiStatusChanged
 import tornaco.apps.shortx.core.proto.fact.WindowRotationChange
 import tornaco.apps.shortx.core.rule.ProtoMessage
 import tornaco.apps.shortx.core.rule.pack_
+import tornaco.apps.shortx.ui.addrule.fact.model.Fact.MethodHook.Companion.toProto
 
 
 fun Fact.toProtoFact(
@@ -754,6 +755,7 @@ fun Fact.toProtoFact(
                 .setBeforeMethod(beforeMethod)
                 .addAllExpressions(expressions)
                 .setLifecycle(lifecycle)
+                .addAllConstraint(constraints.map { it.toProto() })
                 .build()
         }
 

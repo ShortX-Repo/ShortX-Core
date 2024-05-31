@@ -3,6 +3,26 @@ package tornaco.apps.shortx.ui.addrule.action.mapper
 import androidx.compose.ui.graphics.Color
 
 val ActionColorPalette = arrayOf(
+    Color(0xFF0362FB),
+    Color(0xFFC562C6),
+    Color(0xFF886AD4),
+    Color(0xFF54D3AD),
+    Color(0xFFC3CA4A),
+    Color(0xFFD7A9B6),
+    Color(0xFF2E63B6),
+    Color(0xFF877D2E),
+    Color(0xFF1CE15A),
+    Color(0xFF3F1A98),
+    Color(0xFFD25B89),
+    Color(0xFF039A8C),
+    Color(0xFFE010A9),
+    Color(0xFF621301),
+    Color(0xFF79D139),
+    Color(0xFF6D9C5F),
+    Color(0xFF7F32C2),
+    Color(0xFF4C4B44),
+    Color(0xFFDE3618),
+
     // MTR
     Color(0xffAE213B),
     Color(0xffFF0000),

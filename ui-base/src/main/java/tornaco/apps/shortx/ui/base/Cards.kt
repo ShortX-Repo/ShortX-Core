@@ -47,12 +47,13 @@ import tornaco.apps.shortx.ui.theme.WarningYellow
 fun ShortXCard(
     modifier: Modifier = Modifier,
     shape: Shape = ShortXCardRoundedCornerShape,
+    backgroundColor: Color = ColorDefaults.backgroundSurfaceColor(),
     onClick: () -> Unit = {},
     content: @Composable () -> Unit
 ) {
     Card(
         modifier = modifier,
-        backgroundColor = ColorDefaults.backgroundSurfaceColor(),
+        backgroundColor = backgroundColor,
         shape = shape,
         elevation = 0.dp,
         onClick = onClick,

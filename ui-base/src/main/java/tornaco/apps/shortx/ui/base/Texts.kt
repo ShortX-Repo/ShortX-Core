@@ -36,6 +36,7 @@ import androidx.compose.ui.unit.sp
 import tornaco.apps.shortx.core.res.Remix
 import tornaco.apps.shortx.ui.theme.NoteTextColor
 import tornaco.apps.shortx.ui.theme.WarningYellow
+import tornaco.apps.shortx.ui.util.themedTextColor
 
 
 @Composable
@@ -53,7 +54,8 @@ fun LargeTitle(text: String) {
     Text(
         modifier = Modifier.padding(vertical = 12.dp),
         text = text,
-        style = MaterialTheme.typography.titleLarge
+        style = MaterialTheme.typography.titleLarge,
+        color = themedTextColor(color = MaterialTheme.colorScheme.primary)
     )
 }
 

@@ -321,4 +321,7 @@ interface IShortX {
     ParcelFileDescriptor getMethodHookLogFD();
     String getMethodHookLogPath();
     void clearMethodHookLogs();
+
+    void setKeyDetectorLongPressTimeoutMS(long timeout);
+    long getKeyDetectorLongPressTimeoutMS();
 }

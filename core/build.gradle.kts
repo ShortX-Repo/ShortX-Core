@@ -24,6 +24,11 @@ buildConfig {
         "WIKI_URL_MVEL",
         "\"https://shortx-repo.github.io/ShortX-Pages/zh/2023/01/05/shortx-usefull-mvel.html\""
     )
+    buildConfigField(
+        "String",
+        "METHOD_HOOK_WIKI_URL",
+        "\"https://shortx-repo.github.io/ShortX-Pages/zh/guide/fact_hook.html#method-hook\""
+    )
 
     buildConfigField(
         "String",

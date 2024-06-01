@@ -59,41 +59,49 @@ fun <T> DropdownSelector(
     items: List<DropdownItem<T>>,
     onSelect: (DropdownItem<T>) -> Unit,
 ) {
-    DropdownMenu(
-        modifier = Modifier.fillMaxWidth(widthFraction).clip(ShortXCardRoundedCornerShape),
-        expanded = state.isMenuOpen,
-        onDismissRequest = {
-            state.close()
-        },
+    MaterialTheme(
+        shapes = MaterialTheme.shapes.copy(extraSmall = ShortXCardRoundedCornerShape)
     ) {
-        items.forEach { dropdownItem ->
-            DropdownMenuItem(
-                modifier = Modifier.clip(ShortXCardRoundedCornerShape),
-                text = {
-                    Row(verticalAlignment = CenterVertically) {
-                        dropdownItem.icon.invoke()
-                        Spacer(modifier = Modifier.size(8.dp))
-                        Column(modifier = Modifier.padding(vertical = 4.dp)) {
-                            Text(
-                                text = dropdownItem.labelLines[0],
-                                style = MaterialTheme.typography.titleSmall
-                            )
-                            dropdownItem.badge?.let { OutlineBadge(text = it) }
-                            if (dropdownItem.labelLines.size > 1) {
-                                dropdownItem.labelLines.subList(1, dropdownItem.labelLines.size)
-                                    .forEach {
-                                        Text(
-                                            text = it,
-                                            style = MaterialTheme.typography.bodySmall.copy(fontSize = 10.sp)
-                                        )
-                                    }
+        DropdownMenu(
+            modifier = Modifier
+                .fillMaxWidth(widthFraction)
+                .clip(ShortXCardRoundedCornerShape),
+            expanded = state.isMenuOpen,
+            onDismissRequest = {
+                state.close()
+            },
+        ) {
+            items.forEach { dropdownItem ->
+                DropdownMenuItem(
+                    modifier = Modifier.clip(ShortXCardRoundedCornerShape),
+                    text = {
+                        Row(verticalAlignment = CenterVertically) {
+                            dropdownItem.icon.invoke()
+                            Spacer(modifier = Modifier.size(8.dp))
+                            Column(modifier = Modifier.padding(vertical = 4.dp)) {
+                                Text(
+                                    text = dropdownItem.labelLines[0],
+                                    style = MaterialTheme.typography.titleSmall
+                                )
+                                dropdownItem.badge?.let { OutlineBadge(text = it) }
+                                if (dropdownItem.labelLines.size > 1) {
+                                    dropdownItem.labelLines.subList(1, dropdownItem.labelLines.size)
+                                        .forEach {
+                                            Text(
+                                                text = it,
+                                                style = MaterialTheme.typography.bodySmall.copy(
+                                                    fontSize = 10.sp
+                                                )
+                                            )
+                                        }
+                                }
                             }
                         }
-                    }
-                }, onClick = {
-                    state.close()
-                    onSelect(dropdownItem)
-                })
+                    }, onClick = {
+                        state.close()
+                        onSelect(dropdownItem)
+                    })
+            }
         }
     }
 }

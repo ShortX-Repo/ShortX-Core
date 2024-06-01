@@ -25,6 +25,11 @@ suspend fun afterNavDelay() {
     delay(NAV_ANIM_DURATION + 20L)
 }
 
+suspend fun afterNavDelay(loadingTime: Long) {
+    val delay = maxOf(NAV_ANIM_DURATION + 20L - loadingTime, 0L)
+    delay(delay)
+}
+
 suspend fun afterNavLongDelay() {
     delay(NAV_ANIM_DURATION + 120L)
 }

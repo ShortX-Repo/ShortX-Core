@@ -66,6 +66,7 @@ val md_theme_dark_outlineVariant = Color(0xFF534341)
 val md_theme_dark_scrim = Color(0xFF000000)
 
 
+val ShortXRed = Color(0XFFFF5145)
 val NoteTextColor = Color(0xFF777777)
 val VipColorGold = Color(0XFFFF8F00)
 val WeChatGreen = Color(0XFF4CAF50)

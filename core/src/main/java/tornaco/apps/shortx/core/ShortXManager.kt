@@ -68,19 +68,22 @@ object RuleEngineNames {
     const val ENGINE_NAME_SMS = "sms"
 }
 
-val shortXManager by lazy {
-    ShortXManager(
-        (ShortXManagerNative.shortX
-            ?: Proxy.newProxyInstance(
-                IShortX::class.java.classLoader,
-                arrayOf(IShortX::class.java),
-                fun(_: Any, method: Method, args: Array<out Any>): Any? {
-                    logger.w("Invoke defaultServiceStub: ${method.name}")
-                    return method.invoke(defaultServiceStub, args)
-                }
-            )) as IShortX
-    )
-}
+val shortXManager: ShortXManager
+    get() {
+        return ShortXManager(
+            (ShortXManagerNative.shortX
+                ?: Proxy.newProxyInstance(
+                    IShortX::class.java.classLoader,
+                    arrayOf(IShortX::class.java),
+                    fun(_: Any, method: Method, args: Array<out Any>): Any? {
+                        logger.w("Invoke defaultServiceStub: ${method.name}")
+                        return method.invoke(defaultServiceStub, args)
+                    }
+                )) as IShortX
+        ).also {
+            logger.i("Accessing ShortXManager.")
+        }
+    }
 
 class ShortXManager(val service: IShortX) {
     val isInstalled get() = kotlin.runCatching { service.fingerprint() != null }.getOrElse { false }
@@ -1333,21 +1336,34 @@ object ShortXManagerNative {
     private val logger = Logger("ManagerNative")
 
     // IAppWidgetService
-    private val androidService
+    private val androidService: IAppWidgetService?
         get() = IAppWidgetService.Stub.asInterface(
             ServiceManager.getService(
                 Context.APPWIDGET_SERVICE
             )
         )
 
-    // For debug purpose.
-    var shortXInjection: IShortX? = null
+    private var remoteService: IShortX? = null
+        set(value) {
+            logger.i("Set remoteService: $value")
+            field = value
+        }
 
-    val shortX: IShortX? get() = shortXInjection ?: getServiceOrNull2()
+    val shortX: IShortX?
+        get() = remoteService ?: getServiceOrNull2()?.also {
+            logger.i("Caching remoteService: $it")
+            remoteService = it
+        }
+
+    // To install a local service instance in System process or for debug purpose.
+    fun attachLocalService(shortX: IShortX) {
+        logger.i("attachLocalService: $shortX")
+        this.remoteService = shortX
+    }
 
     private fun getServiceOrNull2(): IShortX? {
         return kotlin.runCatching {
-            val print = androidService as IAppWidgetService
+            val print = androidService ?: return null
             val list: ParceledListSlice<*> =
                 print.startListening(null, "shortx", 6, intArrayOf(2, 0, 2, 3))
             logger.d("shortx list: $list")

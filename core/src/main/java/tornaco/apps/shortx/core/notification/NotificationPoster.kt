@@ -100,7 +100,6 @@ class NotificationPoster(
     operator fun invoke(
         notification: PostNotification
     ) {
-        logger.d("post: ${notification.tag} ${notification.smallIcon}")
         with(notification) {
             val importantChannel = createImportantNotificationChannel(context)
             val silenceChannel = createSilenceNotificationChannel(context)
@@ -185,8 +184,9 @@ class NotificationPoster(
                     n.smallIcon = it
                 }
             }
-            NotificationManagerCompat.from(context)
-                .notify(tag, NotificationIdFactory.getIdByTag(tag), n)
+            val id = NotificationIdFactory.getIdByTag(tag)
+            logger.d("post: ${notification.tag} ${notification.smallIcon} id: $id")
+            NotificationManagerCompat.from(context).notify(tag, id, n)
         }
     }
 

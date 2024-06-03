@@ -1,6 +1,5 @@
 package tornaco.apps.shortx.core.notification
 
-import java.util.*
 import java.util.concurrent.atomic.AtomicInteger
 
 object NotificationIdFactory {

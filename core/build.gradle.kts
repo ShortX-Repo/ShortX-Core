@@ -56,7 +56,6 @@ buildConfig {
         "OPEN_SOURCE_LICENSE_URL",
         "\"https://raw.githubusercontent.com/ShortX-Repo/ShortX-Release/main/open_source_license.md\""
     )
-    buildConfigField("String", "API_BASE_URL", "\"http://shortx.emui.tech/api/\"")
     buildConfigField("String", "SHORTX_GITHIB_REPO_URL", "\"https://github.com/ShortX-Repo\"")
     buildConfigField(
         "String",

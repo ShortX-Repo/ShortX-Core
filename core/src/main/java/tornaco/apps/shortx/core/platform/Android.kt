@@ -47,6 +47,10 @@ object Methods {
     const val onCreate = "onCreate"
     const val updateScreenStateLocked = "updateScreenStateLocked"
     const val setState = "setState"
+
+    // Android 13-14
+    const val onBackNavigationDone = "onBackNavigationDone"
+    const val startBackNavigation = "startBackNavigation"
 }
 
 object ClassNames {

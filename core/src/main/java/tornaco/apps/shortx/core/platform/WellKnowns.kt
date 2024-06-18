@@ -184,6 +184,13 @@ object Classes {
             this
         )
 
+    @Throws(ClassNotFoundException::class)
+    fun ClassLoader.backNavControllerClass(): Class<*> =
+        Reflections.findClass(
+            "com.android.server.wm.BackNavigationController",
+            this
+        )
+
 
     fun Class<*>.activityStoppedMethod(): Method? {
         return declaredMethods.firstOrNull { it.name == Methods.activityStopped || it.name == Methods.activityStoppedLocked }

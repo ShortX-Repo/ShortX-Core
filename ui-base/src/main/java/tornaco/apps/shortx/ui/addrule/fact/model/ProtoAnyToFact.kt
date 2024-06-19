@@ -763,6 +763,30 @@ fun ProtoAny.toFact(shortXManager: ShortXManager): Fact? {
             )
         }
 
+        this is_ tornaco.apps.shortx.core.proto.fact.BackNavDone::class.java -> {
+            val data =
+                this unpack_ tornaco.apps.shortx.core.proto.fact.BackNavDone::class.java
+            Fact.BackNavDone(
+                id = data.id,
+                customContextDataKey = data.customContextDataKey,
+                note = data.note,
+                isDisabled = data.isDisabled,
+                tag = data.tag
+            )
+        }
+
+        this is_ tornaco.apps.shortx.core.proto.fact.BackNavStart::class.java -> {
+            val data =
+                this unpack_ tornaco.apps.shortx.core.proto.fact.BackNavStart::class.java
+            Fact.BackNavStart(
+                id = data.id,
+                customContextDataKey = data.customContextDataKey,
+                note = data.note,
+                isDisabled = data.isDisabled,
+                tag = data.tag
+            )
+        }
+
         this is_ tornaco.apps.shortx.core.proto.fact.MediaStoreInsert::class.java -> {
             val data =
                 this unpack_ tornaco.apps.shortx.core.proto.fact.MediaStoreInsert::class.java

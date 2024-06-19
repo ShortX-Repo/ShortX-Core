@@ -805,6 +805,25 @@ message Logcat {
   bool isDisabled = 101;
 }
 
+message BackNavStart {
+  string tag = 97;
+  CustomContextDataKey customContextDataKey = 98;
+  string note = 99;
+  string id = 100;
+  bool isDisabled = 101;
+}
+
+message BackNavDone {
+  bool triggerBack = 1;
+  bool backType = 2;
+
+  string tag = 97;
+  CustomContextDataKey customContextDataKey = 98;
+  string note = 99;
+  string id = 100;
+  bool isDisabled = 101;
+}
+
 message MethodHook {
   string packageName = 1;
   string className = 2;

@@ -80,6 +80,8 @@ fun imageVectorForFact(fact: KClass<out Fact>): String {
         Fact.NFCTagDiscover::class -> Remix.Device.nfc_fill
         Fact.Logcat::class -> Remix.Document.newspaper_fill
         Fact.MethodHook::class -> Remix.Development.code_box_fill
+        Fact.BackNavStart::class -> Remix.Arrows.arrow_left_line
+        Fact.BackNavDone::class -> Remix.Arrows.arrow_left_line
 
         else -> {
             Remix.Document.file_unknow_fill

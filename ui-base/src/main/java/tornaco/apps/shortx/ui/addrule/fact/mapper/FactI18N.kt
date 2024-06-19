@@ -259,6 +259,14 @@ fun labelAndDescriptionForFactSelector(i18n: I18N, fact: KClass<out Fact>): Pair
             i18n["Method hook"] to null
         }
 
+        Fact.BackNavStart::class -> {
+            i18n["ui.fact.back.nav.start"] to null
+        }
+
+        Fact.BackNavDone::class -> {
+            i18n["ui.fact.back.nav.done"] to null
+        }
+
         else -> "N/A" to null
     }
 }
@@ -774,6 +782,18 @@ fun labelForFact(i18N: I18N, fact: Fact): List<String> {
             listOf(
                 i18N["Method hook"],
                 "${fact.className} ${fact.methodName}$PREFIX_APP_ICON${fact.packageName}"
+            )
+        }
+
+        is Fact.BackNavStart -> {
+            listOf(
+                i18N["ui.fact.back.nav.start"],
+            )
+        }
+
+        is Fact.BackNavDone -> {
+            listOf(
+                i18N["ui.fact.back.nav.done"],
             )
         }
     }

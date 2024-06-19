@@ -23,6 +23,8 @@ import tornaco.apps.shortx.core.proto.fact.AudioFocusLost
 import tornaco.apps.shortx.core.proto.fact.BTConnectedTo
 import tornaco.apps.shortx.core.proto.fact.BTDisconnectedFrom
 import tornaco.apps.shortx.core.proto.fact.BTStatusChanged
+import tornaco.apps.shortx.core.proto.fact.BackNavDone
+import tornaco.apps.shortx.core.proto.fact.BackNavStart
 import tornaco.apps.shortx.core.proto.fact.BatteryLevelChanged
 import tornaco.apps.shortx.core.proto.fact.BatteryTemperatureChanged
 import tornaco.apps.shortx.core.proto.fact.Broadcast
@@ -569,6 +571,20 @@ fun Fact.toProtoFact(
 
         is Fact.VPNDisconnected -> {
             VPNDisconnected.newBuilder().setId(overrideId ?: id).setNote(overrideNote ?: note)
+                .setIsDisabled(isDisabled)
+                .setTag(overrideTag ?: tag)
+                .setCustomContextDataKey(customContextDataKey).build()
+        }
+
+        is Fact.BackNavStart -> {
+            BackNavStart.newBuilder().setId(overrideId ?: id).setNote(overrideNote ?: note)
+                .setIsDisabled(isDisabled)
+                .setTag(overrideTag ?: tag)
+                .setCustomContextDataKey(customContextDataKey).build()
+        }
+
+        is Fact.BackNavDone -> {
+            BackNavDone.newBuilder().setId(overrideId ?: id).setNote(overrideNote ?: note)
                 .setIsDisabled(isDisabled)
                 .setTag(overrideTag ?: tag)
                 .setCustomContextDataKey(customContextDataKey).build()

@@ -99,6 +99,9 @@ val allFactClasses = listOf(
     Fact.Logcat::class,
     Fact.MethodHook::class,
 
+    Fact.BackNavStart::class,
+    Fact.BackNavDone::class,
+
 
     Fact.AnyFact::class,
 )

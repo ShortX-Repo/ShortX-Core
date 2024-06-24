@@ -14,6 +14,7 @@ import tornaco.apps.shortx.core.proto.fact.AppBecomeBg
 import tornaco.apps.shortx.core.proto.fact.AppBecomeFg
 import tornaco.apps.shortx.core.proto.fact.AppGainWindowFocus
 import tornaco.apps.shortx.core.proto.fact.AppLostWindowFocus
+import tornaco.apps.shortx.core.proto.fact.AppProcessRemoved
 import tornaco.apps.shortx.core.proto.fact.AppProcessStarted
 import tornaco.apps.shortx.core.proto.fact.AppRemoved
 import tornaco.apps.shortx.core.proto.fact.AppUpdated
@@ -675,6 +676,15 @@ fun Fact.toProtoFact(
 
         is Fact.AppProcessStarted -> {
             AppProcessStarted.newBuilder().setId(overrideId ?: id).setNote(overrideNote ?: note)
+                .setIsDisabled(isDisabled)
+                .setTag(overrideTag ?: tag)
+                .setCustomContextDataKey(customContextDataKey)
+                .addAllProcessName(processNames)
+                .build()
+        }
+
+        is Fact.AppProcessRemoved -> {
+            AppProcessRemoved.newBuilder().setId(overrideId ?: id).setNote(overrideNote ?: note)
                 .setIsDisabled(isDisabled)
                 .setTag(overrideTag ?: tag)
                 .setCustomContextDataKey(customContextDataKey)

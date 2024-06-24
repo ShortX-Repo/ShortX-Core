@@ -700,6 +700,16 @@ message AppProcessStarted {
   bool isDisabled = 101;
 }
 
+message AppProcessRemoved {
+  repeated ProcessName processName = 1;
+
+  string tag = 97;
+  CustomContextDataKey customContextDataKey = 98;
+  string note = 99;
+  string id = 100;
+  bool isDisabled = 101;
+}
+
 message HeadsetPlug {
   bool isPlug = 1;
 

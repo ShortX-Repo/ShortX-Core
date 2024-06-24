@@ -87,6 +87,7 @@ val allFactClasses = listOf(
 
     Fact.HasFoundNodeOnScreen::class,
     Fact.AppProcessStarted::class,
+    Fact.AppProcessRemoved::class,
 
     Fact.HeadsetPlug::class,
     Fact.ScreenRotate::class,

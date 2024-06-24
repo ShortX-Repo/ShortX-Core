@@ -9,6 +9,7 @@ fun imageVectorForFact(fact: KClass<out Fact>): String {
     return when (fact) {
         Fact.AnyFact::class -> Remix.Logos.blender_fill
         Fact.AppProcessStarted::class -> Remix.Logos.android_fill
+        Fact.AppProcessRemoved::class -> Remix.Logos.android_fill
         Fact.ActivityStarted::class -> Remix.Logos.android_fill
         Fact.ActivityStopped::class -> Remix.Logos.android_fill
         Fact.ActivityDestroyed::class -> Remix.Logos.android_fill

@@ -110,6 +110,10 @@ fun KClass<out Fact>.factContextData(customContextDataKey: CustomContextDataKey 
             dats<ContextDataMapping.AppProcessStarted>(customContextDataKey)
         }
 
+        Fact.AppProcessRemoved::class -> {
+            dats<ContextDataMapping.AppProcessRemoved>(customContextDataKey)
+        }
+
         Fact.PkgStopRunning::class, Fact.PkgStopRunningAny::class -> {
             dats<ContextDataMapping.PkgStopRunning>(customContextDataKey)
         }

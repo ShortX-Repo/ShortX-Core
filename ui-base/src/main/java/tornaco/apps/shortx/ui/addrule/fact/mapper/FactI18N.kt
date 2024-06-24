@@ -37,6 +37,7 @@ fun labelAndDescriptionForFactSelector(i18n: I18N, fact: KClass<out Fact>): Pair
     return when (fact) {
         Fact.AnyFact::class -> "Any(For dev)" to null
         Fact.AppProcessStarted::class -> i18n["ui.fact.process.started"] to null
+        Fact.AppProcessRemoved::class -> i18n["ui.fact.process.removed"] to null
         Fact.ActivityStarted::class -> i18n["ui.fact.activity.started"] to i18n["ui.fact.activity.started.specific"]
         Fact.ActivityStopped::class -> i18n["ui.fact.activity.stopped"] to null
         Fact.ActivityDestroyed::class -> i18n["ui.fact.activity.destroyed"] to null
@@ -321,6 +322,10 @@ fun labelForFact(i18N: I18N, fact: Fact): List<String> {
 
         is Fact.AppProcessStarted -> listOf(
             i18N["ui.fact.process.started"],
+        )
+
+        is Fact.AppProcessRemoved -> listOf(
+            i18N["ui.fact.process.removed"],
         )
 
         is Fact.EdgeGesture -> listOf(

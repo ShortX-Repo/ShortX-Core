@@ -958,6 +958,19 @@ fun ProtoAny.toFact(shortXManager: ShortXManager): Fact? {
             )
         }
 
+        this is_ tornaco.apps.shortx.core.proto.fact.AppProcessRemoved::class.java -> {
+            val data =
+                this unpack_ tornaco.apps.shortx.core.proto.fact.AppProcessRemoved::class.java
+
+            Fact.AppProcessRemoved(
+                id = data.id, customContextDataKey = data.customContextDataKey,
+                note = data.note,
+                isDisabled = data.isDisabled,
+                tag = data.tag,
+                processNames = data.processNameList
+            )
+        }
+
         this is_ tornaco.apps.shortx.core.proto.fact.IMEVisibilityChange::class.java -> {
             val data =
                 this unpack_ tornaco.apps.shortx.core.proto.fact.IMEVisibilityChange::class.java

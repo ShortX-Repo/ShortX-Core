@@ -1258,6 +1258,33 @@ sealed interface Fact : Parcelable {
 
     // Fact class
     @Parcelize
+    data class AppProcessRemoved(
+        override val note: String = "",
+        override val isDisabled: Boolean = false,
+        override val tag: String = "",
+        override val customContextDataKey: CustomContextDataKey = CustomContextDataKey.getDefaultInstance(),
+        override val id: String = defaultNewFactId(),
+        val processNames: List<ProcessName>
+    ) : Fact {
+        override fun clone(
+            id: String,
+            note: String,
+            tag: String,
+            isDisabled: Boolean,
+            customContextDataKey: CustomContextDataKey
+        ): Fact {
+            return copy(
+                id = id,
+                note = note,
+                tag = tag,
+                isDisabled = isDisabled,
+                customContextDataKey = customContextDataKey
+            )
+        }
+    }
+
+    // Fact class
+    @Parcelize
     data class TaskRemoved(
         override val note: String = "",
         override val isDisabled: Boolean = false,

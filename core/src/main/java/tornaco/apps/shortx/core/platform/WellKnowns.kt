@@ -191,6 +191,13 @@ object Classes {
             this
         )
 
+    @Throws(ClassNotFoundException::class)
+    fun ClassLoader.taskOrganizerControllerClass(): Class<*> =
+        Reflections.findClass(
+            "com.android.server.wm.TaskOrganizerController",
+            this
+        )
+
 
     fun Class<*>.activityStoppedMethod(): Method? {
         return declaredMethods.firstOrNull { it.name == Methods.activityStopped || it.name == Methods.activityStoppedLocked }

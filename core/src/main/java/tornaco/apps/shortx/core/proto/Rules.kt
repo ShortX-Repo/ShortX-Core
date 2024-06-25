@@ -15,3 +15,7 @@ fun Message.containsAnyTypeUrl(typeUrl: List<String>): Boolean {
         typeUrl.any { messageString.contains(it) }
     }
 }
+
+fun Message.printToString(): String {
+    return TextFormat.printer().printToString(this)
+}

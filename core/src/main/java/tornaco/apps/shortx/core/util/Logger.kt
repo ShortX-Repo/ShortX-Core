@@ -16,6 +16,16 @@ class Logger(private val tag: String = "-") {
         }
     }
 
+    fun p(any: () -> Any?) {
+        onDebugBuild {
+            logAdapter(
+                Log.DEBUG,
+                fullTag,
+                "[${Thread.currentThread().name}] [DEBUG-LOG] ${any()}"
+            )
+        }
+    }
+
     fun pe(any: Any?) {
         onDebugBuild {
             logAdapter(

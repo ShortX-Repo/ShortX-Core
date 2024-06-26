@@ -1,5 +1,6 @@
 package tornaco.apps.shortx.ui.theme
 
+import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
@@ -9,14 +10,15 @@ import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.unit.dp
-import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import androidx.core.view.WindowCompat
 import tornaco.apps.shortx.ui.base.LocalShortXColorSchema
 
 val LightColors = lightColorScheme(
@@ -125,21 +127,13 @@ fun ShortXTheme(
             )
         }
 
-        // Remember a SystemUiController
-        val systemUiController = rememberSystemUiController()
-        val useDarkIcons = !isSystemInDarkTheme()
-
-        DisposableEffect(systemUiController, useDarkIcons) {
-            // Update all of the system bar colors to be transparent, and use
-            // dark icons if we're in light theme
-            systemUiController.setSystemBarsColor(
-                color = Color.Transparent,
-                darkIcons = useDarkIcons
-            )
-
-            // setStatusBarColor() and setNavigationBarColor() also exist
-
-            onDispose {}
+        val view = LocalView.current
+        if (!view.isInEditMode) {
+            SideEffect {
+                val window = (view.context as Activity).window
+                WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars =
+                    !darkTheme
+            }
         }
 
         CompositionLocalProvider(LocalShortXColorSchema provides shortXColorScheme) {

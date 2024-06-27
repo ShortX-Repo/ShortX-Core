@@ -7,8 +7,17 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.consumeWindowInsets
-import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.systemBars
+import androidx.compose.foundation.layout.windowInsetsBottomHeight
+import androidx.compose.foundation.layout.windowInsetsTopHeight
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -17,7 +26,6 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import org.lsposed.hiddenapibypass.HiddenApiBypass
-import tornaco.apps.shortx.core.shortXManager
 import tornaco.apps.shortx.ui.base.ListItem
 import tornaco.apps.shortx.ui.theme.ShortXTheme
 
@@ -38,10 +46,17 @@ class MainActivity : ComponentActivity() {
                             Text(text = "Core")
                         }, scrollBehavior = scrollBehavior)
                     }) {
-                    LazyColumn(Modifier.consumeWindowInsets(it)) {
-                        items(100) {
-                            ListItem(title = "ShortX: ${shortXManager.version()}")
+                    Column(
+                        Modifier
+                            .fillMaxSize()
+                            .consumeWindowInsets(it)
+                            .verticalScroll(rememberScrollState())
+                    ) {
+                        Spacer(Modifier.size(it.calculateTopPadding()))
+                        repeat(20) {
+                            ListItem(title = "Hello- $it")
                         }
+                        Spacer(Modifier.size(it.calculateBottomPadding()))
                     }
                 }
             }

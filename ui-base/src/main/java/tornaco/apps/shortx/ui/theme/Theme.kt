@@ -130,9 +130,12 @@ fun ShortXTheme(
         val view = LocalView.current
         if (!view.isInEditMode) {
             SideEffect {
-                val window = (view.context as Activity).window
-                WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars =
-                    !darkTheme
+                // Maybe a Dialog.
+                val window = (view.context as? Activity)?.window
+                window?.let {
+                    WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars =
+                        !darkTheme
+                }
             }
         }
 

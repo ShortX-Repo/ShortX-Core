@@ -97,6 +97,7 @@ fun ContextViewModel<*, *>.ruleToRuleUM(
     return RuleUM(
         id = rule.id,
         title = rule.title,
+        titlePinyin = Pinyin.toPinyin(rule.title, "").lowercase(),
         description = rule.description.replaceGlobalVarValues { globalVars }.fallbackOnEmpty(
             translateRule(rule)
         ),

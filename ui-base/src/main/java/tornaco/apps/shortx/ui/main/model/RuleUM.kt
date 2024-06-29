@@ -5,6 +5,8 @@ import tornaco.apps.shortx.core.proto.rule.Rule
 data class RuleUM(
     val id: String,
     val title: String,
+    // For search, lowercase
+    val titlePinyin: String,
     val description: String,
     val updateTime: String,
     val createTime: String,

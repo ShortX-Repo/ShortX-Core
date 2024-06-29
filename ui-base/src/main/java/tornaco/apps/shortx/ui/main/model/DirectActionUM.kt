@@ -8,6 +8,8 @@ import tornaco.apps.shortx.core.proto.da.DirectAction
 data class DirectActionUM(
     val id: String,
     val title: String,
+    // For search, lowercase
+    val titlePinyin: String,
     val description: String,
     val updateTime: String,
     val createTime: String,

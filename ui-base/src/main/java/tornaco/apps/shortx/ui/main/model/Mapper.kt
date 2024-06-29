@@ -1,6 +1,7 @@
 package tornaco.apps.shortx.ui.main.model
 
 import androidx.compose.ui.graphics.Color
+import com.github.promeg.pinyinhelper.Pinyin
 import si.virag.fuzzydateformatter.FuzzyDateTimeFormatter
 import tornaco.apps.shortx.core.proto.condition.True
 import tornaco.apps.shortx.core.proto.da.DirectAction
@@ -42,6 +43,7 @@ fun ContextViewModel<*, *>.daToDirectActionUM(
     return DirectActionUM(
         id = directAction.id,
         title = directAction.title,
+        titlePinyin = Pinyin.toPinyin(directAction.title, "").lowercase(),
         description = translateDA(directAction, globalVars),
         updateTime = FuzzyDateTimeFormatter.getTimeAgo(
             context,

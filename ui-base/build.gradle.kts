@@ -65,6 +65,7 @@ dependencies {
     implementation(libs.io.noties.markwo.linkify)
 
     implementation(libs.codeview)
+    implementation(libs.tinypinyin)
 
     implementation(project(":core"))
     implementation(project(":external:icons"))

@@ -1,6 +1,5 @@
 package tornaco.apps.shortx.core.backup
 
-import android.os.Environment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import tornaco.apps.shortx.core.shortXManager
@@ -21,6 +20,7 @@ fun autoGenBackupFileName() =
 
 interface BackupSettings {
     val cacheDir: File
+    val destDir: File
     val versionCode: Long
 }
 
@@ -79,8 +79,7 @@ open class CoreBackupAgent(private val settings: BackupSettings) {
             val meta = "${settings.versionCode}"
             metaFile.writeText(meta)
 
-            val backupZipRootDir =
-                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+            val backupZipRootDir = settings.destDir
 
             val name = (fileName ?: autoGenBackupFileName()) + ".zip"
 

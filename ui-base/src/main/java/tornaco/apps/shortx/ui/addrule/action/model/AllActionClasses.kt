@@ -143,5 +143,6 @@ val allActionClasses = listOf(
     Action.MatchRegex::class,
     Action.ReplaceRegex::class,
     Action.TextProcessing::class,
+    Action.ExportBackup::class,
     Action.NoAction::class,
 )

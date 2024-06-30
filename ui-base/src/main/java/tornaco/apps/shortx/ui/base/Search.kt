@@ -37,6 +37,7 @@ fun rememberSearchBarState(
 fun SearchBar(
     searchBarState: SearchBarState,
     modifier: Modifier = Modifier,
+    autoFocus: Boolean = false,
     onSearchClick: () -> Unit = {}
 ) {
     Surface(
@@ -47,13 +48,17 @@ fun SearchBar(
             horizontalArrangement = Arrangement.Start,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            SearchTextField(searchBarState, onSearchClick)
+            SearchTextField(searchBarState, autoFocus, onSearchClick)
         }
     }
 }
 
 @Composable
-fun SearchTextField(searchBarState: SearchBarState, onSearchClick: () -> Unit) {
+fun SearchTextField(
+    searchBarState: SearchBarState,
+    autoFocus: Boolean,
+    onSearchClick: () -> Unit
+) {
     val keyboardController = LocalSoftwareKeyboardController.current
     val focusManager = LocalFocusManager.current
     val focusRequester = remember { FocusRequester() }
@@ -95,7 +100,7 @@ fun SearchTextField(searchBarState: SearchBarState, onSearchClick: () -> Unit) {
             searchBarState.inputKeyword(it)
         })
 
-    LaunchedEffect(Unit) {
+    if (autoFocus) LaunchedEffect(Unit) {
         focusRequester.requestFocus()
     }
 }

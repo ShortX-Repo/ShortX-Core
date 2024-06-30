@@ -315,4 +315,9 @@ object ContextDataMapping {
     enum class TextProcessing(val description: String) {
         textProcessResult("Returns the processed string"),
     }
+
+    @DoNotStrip
+    enum class ExportBackup(val description: String) {
+        backupFilePath("Path of the backup file"),
+    }
 }

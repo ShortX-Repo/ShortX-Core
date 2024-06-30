@@ -22,6 +22,7 @@ import tornaco.apps.shortx.core.proto.action.EnableViewIdViewer
 import tornaco.apps.shortx.core.proto.action.ExecuteJS
 import tornaco.apps.shortx.core.proto.action.ExecuteMVEL
 import tornaco.apps.shortx.core.proto.action.ExpandNotification
+import tornaco.apps.shortx.core.proto.action.ExportBackup
 import tornaco.apps.shortx.core.proto.action.FindAndClickMatchedView
 import tornaco.apps.shortx.core.proto.action.FindAndClickViewById
 import tornaco.apps.shortx.core.proto.action.FindAndClickViewByText
@@ -1756,6 +1757,17 @@ fun Action.toProtoAction(overrideId: String? = null, overrideNote: String? = nul
                 .setString(string)
                 .setRegex(regex)
                 .setReplacement(replacement)
+                .build()
+        }
+
+        is Action.ExportBackup -> {
+            ExportBackup.newBuilder()
+                .setId(overrideId ?: id)
+                .setIsDisabled(!isEnabled)
+                .setActionOnError(actionOnError)
+                .setCustomContextDataKey(contextData.toCustomContextDataKey())
+                .setNote(overrideNote ?: note)
+                .setDestDir(destDir)
                 .build()
         }
 

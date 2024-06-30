@@ -245,6 +245,7 @@ fun labelAndDescriptionForActionSelector(
         Action.MatchRegex::class -> i18N["ui.action.match.regex"] to null
         Action.ReplaceRegex::class -> i18N["ui.action.replace.regex"] to null
         Action.TextProcessing::class -> i18N["ui.action.text.processing"] to null
+        Action.ExportBackup::class -> i18N["ui.action.backup"] to null
         Action.SwitchCase::class -> i18N.get(
             key = "ui.action.switch.case",
             fallback = "Switch case"
@@ -977,6 +978,11 @@ fun labelLinesForAction(i18N: I18N, action: Action): List<String> {
         is Action.TextProcessing -> listOf(
             i18N["ui.action.text.processing"],
             action.text
+        )
+
+        is Action.ExportBackup -> listOfNotNull(
+            i18N["ui.action.backup"],
+            action.destDir.takeIf { it.isNotBlank() }
         )
     }
 }

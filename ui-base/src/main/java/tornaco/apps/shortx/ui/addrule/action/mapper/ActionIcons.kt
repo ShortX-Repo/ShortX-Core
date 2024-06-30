@@ -17,6 +17,10 @@ fun imageVectorForAction(action: KClass<out Action>): String {
             Remix.Communication.chat_2_fill
         }
 
+        Action.ExportBackup::class -> {
+            Remix.Document.file_upload_fill
+        }
+
         Action.Toggle5G::class -> {
             Remix.Editor.number_5
         }

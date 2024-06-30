@@ -48,4 +48,5 @@ val allConditionClasses = listOf(
     Condition.RequireNotificationPanelExpanded::class,
     Condition.ConnectedWifiSignal::class,
     Condition.TheXXTimeToday::class,
+    Condition.RequireRingerMode::class,
 )

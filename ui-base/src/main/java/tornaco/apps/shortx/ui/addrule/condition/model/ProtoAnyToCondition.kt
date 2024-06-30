@@ -35,6 +35,7 @@ import tornaco.apps.shortx.core.proto.condition.RequireFactTag
 import tornaco.apps.shortx.core.proto.condition.RequireIMEVisibility
 import tornaco.apps.shortx.core.proto.condition.RequireMobileDataEnabled
 import tornaco.apps.shortx.core.proto.condition.RequireNotificationPanelExpanded
+import tornaco.apps.shortx.core.proto.condition.RequireRingerMode
 import tornaco.apps.shortx.core.proto.condition.RequireScreenRotate
 import tornaco.apps.shortx.core.proto.condition.RequireSensorOff
 import tornaco.apps.shortx.core.proto.condition.RequireTileState
@@ -647,6 +648,18 @@ fun ProtoAny.toCondition(shortXManager: ShortXManager): Condition? {
                 isDisabled = data.isDisabled,
                 customContextDataKey = data.customContextDataKey,
                 isExpand = data.isExpand
+            )
+        }
+
+        this is_ RequireRingerMode::class.java -> {
+            val data = this unpack_ RequireRingerMode::class.java
+            Condition.RequireRingerMode(
+                id = data.id,
+                note = data.note,
+                isInvert = data.isInvert,
+                isDisabled = data.isDisabled,
+                customContextDataKey = data.customContextDataKey,
+                mode = data.mode
             )
         }
 

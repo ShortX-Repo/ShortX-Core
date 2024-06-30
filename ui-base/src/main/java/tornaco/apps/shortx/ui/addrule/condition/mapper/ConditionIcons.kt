@@ -193,6 +193,10 @@ fun iconForCondition(condition: KClass<out Condition>): String {
             Remix.System.notification_badge_fill
         }
 
+        Condition.RequireRingerMode::class -> {
+            Remix.Media.volume_vibrate_fill
+        }
+
         else -> {
             Remix.Document.file_unknow_fill
         }

@@ -10,6 +10,7 @@ import tornaco.apps.shortx.core.proto.pkgset.PkgSet
 import tornaco.apps.shortx.core.rule.toDisplayName
 import tornaco.apps.shortx.core.shortXManager
 import tornaco.apps.shortx.core.util.select
+import tornaco.apps.shortx.ui.addrule.action.mapper.labelKey
 import tornaco.apps.shortx.ui.addrule.condition.model.Condition
 import tornaco.apps.shortx.ui.addrule.condition.op.Op
 import tornaco.apps.shortx.ui.addrule.fact.mapper.factLabelKey
@@ -271,6 +272,12 @@ fun labelForConditionSelector(i18N: I18N, condition: KClass<out Condition>): Lis
         Condition.RequireNotificationPanelExpanded::class -> {
             listOf(
                 i18N["ui.condition.n.panel.expanded"],
+            )
+        }
+
+        Condition.RequireRingerMode::class -> {
+            listOf(
+                i18N["ui.condition.ringer.mode"],
             )
         }
 
@@ -602,6 +609,13 @@ fun labelForCondition(i18N: I18N, condition: Condition): List<String> {
                     i18N["ui.condition.n.panel.expanded.y"],
                     i18N["ui.condition.n.panel.expanded.n"],
                 )
+            )
+        }
+
+        is Condition.RequireRingerMode -> {
+            listOf(
+                i18N["ui.condition.ringer.mode"],
+                i18N[condition.mode.labelKey()]
             )
         }
 

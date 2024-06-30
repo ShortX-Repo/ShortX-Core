@@ -394,3 +394,12 @@ message HttpResponseData {
   string body = 3;
   map<string, string> headers = 4;
 }
+
+enum RingerMode {
+  // public static final int RINGER_MODE_SILENT = 0;
+  // public static final int RINGER_MODE_VIBRATE = 1;
+  // public static final int RINGER_MODE_NORMAL = 2;
+  silent = 0;
+  vibrate = 1;
+  normal = 2;
+}

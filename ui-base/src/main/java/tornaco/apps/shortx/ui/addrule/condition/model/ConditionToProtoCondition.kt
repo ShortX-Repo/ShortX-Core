@@ -35,6 +35,7 @@ import tornaco.apps.shortx.core.proto.condition.RequireFactTag
 import tornaco.apps.shortx.core.proto.condition.RequireIMEVisibility
 import tornaco.apps.shortx.core.proto.condition.RequireMobileDataEnabled
 import tornaco.apps.shortx.core.proto.condition.RequireNotificationPanelExpanded
+import tornaco.apps.shortx.core.proto.condition.RequireRingerMode
 import tornaco.apps.shortx.core.proto.condition.RequireScreenRotate
 import tornaco.apps.shortx.core.proto.condition.RequireSensorOff
 import tornaco.apps.shortx.core.proto.condition.RequireTileState
@@ -663,6 +664,17 @@ fun Condition.toProtoCondition(overrideId: String? = null): ProtoMessage {
                 .setIsDisabled(isDisabled)
                 .setCustomContextDataKey(customContextDataKey)
                 .setIsExpand(isExpand)
+                .build()
+        }
+
+        is Condition.RequireRingerMode -> {
+            RequireRingerMode.newBuilder()
+                .setId(overrideId ?: id)
+                .setNote(note)
+                .setIsInvert(isInvert)
+                .setIsDisabled(isDisabled)
+                .setCustomContextDataKey(customContextDataKey)
+                .setMode(mode)
                 .build()
         }
 

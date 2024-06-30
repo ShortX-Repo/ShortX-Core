@@ -12,7 +12,6 @@ import tornaco.apps.shortx.core.proto.action.MapApp
 import tornaco.apps.shortx.core.proto.action.MediaPlaybackAction
 import tornaco.apps.shortx.core.proto.action.NavType
 import tornaco.apps.shortx.core.proto.action.NotificationButton
-import tornaco.apps.shortx.core.proto.action.RingerMode
 import tornaco.apps.shortx.core.proto.action.ScrollViewToLocation
 import tornaco.apps.shortx.core.proto.action.WriteGlobalVarOp
 import tornaco.apps.shortx.core.proto.common.ActionOnError
@@ -29,6 +28,7 @@ import tornaco.apps.shortx.core.proto.common.OnOffToggle
 import tornaco.apps.shortx.core.proto.common.ProcessName
 import tornaco.apps.shortx.core.proto.common.QSTile
 import tornaco.apps.shortx.core.proto.common.RegexMatchOptions
+import tornaco.apps.shortx.core.proto.common.RingerMode
 import tornaco.apps.shortx.core.proto.common.Ringtone
 import tornaco.apps.shortx.core.proto.common.ScreenRotateDegree
 import tornaco.apps.shortx.core.proto.common.StringPair
@@ -4067,7 +4067,7 @@ sealed interface Action : Parcelable {
         override val isEnabled: Boolean = true,
         override val actionOnError: ActionOnError = defaultActionOnError,
         override val customContextDataKey: CustomContextDataKey = CustomContextDataKey.getDefaultInstance(),
-        override val contextData: List<ContextData> = dats<ContextDataMapping.ReplaceRegex>(
+        override val contextData: List<ContextData> = dats<ContextDataMapping.ExportBackup>(
             customContextDataKey
         ),
         override val note: String = "",

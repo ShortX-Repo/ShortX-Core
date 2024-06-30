@@ -7,6 +7,7 @@ import tornaco.apps.shortx.core.proto.common.AppComponent
 import tornaco.apps.shortx.core.proto.common.CustomContextDataKey
 import tornaco.apps.shortx.core.proto.common.IntOp
 import tornaco.apps.shortx.core.proto.common.QSTileState
+import tornaco.apps.shortx.core.proto.common.RingerMode
 import tornaco.apps.shortx.core.proto.common.ScreenRotateDegree
 import tornaco.apps.shortx.core.proto.common.StringPair
 import tornaco.apps.shortx.core.proto.common.TimeOfADayRange
@@ -231,6 +232,32 @@ sealed interface Condition : Parcelable {
     @Parcelize
     data class RequireNotificationPanelExpanded(
         val isExpand: Boolean,
+        override val note: String = "",
+        override val isInvert: Boolean = false,
+        override val isDisabled: Boolean = false,
+        override val customContextDataKey: CustomContextDataKey = CustomContextDataKey.getDefaultInstance(),
+        override val id: String = defaultNewConditionId()
+    ) : Condition {
+        override fun clone(
+            id: String,
+            note: String,
+            isInvert: Boolean,
+            isDisabled: Boolean,
+            customContextDataKey: CustomContextDataKey
+        ): Condition {
+            return copy(
+                id = id,
+                note = note,
+                isInvert = isInvert,
+                isDisabled = isDisabled,
+                customContextDataKey = customContextDataKey
+            )
+        }
+    }
+
+    @Parcelize
+    data class RequireRingerMode(
+        val mode: RingerMode,
         override val note: String = "",
         override val isInvert: Boolean = false,
         override val isDisabled: Boolean = false,

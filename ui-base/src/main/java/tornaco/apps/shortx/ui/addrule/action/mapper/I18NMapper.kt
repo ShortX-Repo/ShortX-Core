@@ -9,11 +9,11 @@ import tornaco.apps.shortx.core.proto.action.ContextMenuAction
 import tornaco.apps.shortx.core.proto.action.MapApp
 import tornaco.apps.shortx.core.proto.action.MediaPlaybackAction
 import tornaco.apps.shortx.core.proto.action.NavType
-import tornaco.apps.shortx.core.proto.action.RingerMode
 import tornaco.apps.shortx.core.proto.action.ScrollViewToLocation
 import tornaco.apps.shortx.core.proto.common.ActionOnError
 import tornaco.apps.shortx.core.proto.common.AudioSource
 import tornaco.apps.shortx.core.proto.common.OnOffToggle
+import tornaco.apps.shortx.core.proto.common.RingerMode
 import tornaco.apps.shortx.core.proto.common.ScreenRotateDegree
 import tornaco.apps.shortx.core.proto.common.VolumeDirection
 import tornaco.apps.shortx.core.res.Remix

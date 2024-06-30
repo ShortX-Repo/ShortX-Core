@@ -17,15 +17,20 @@ fun ShortXFilterChip(
     onClick: () -> Unit,
     label: @Composable () -> Unit,
     modifier: Modifier = Modifier,
+    showLeadingIcon: Boolean = false
 ) {
     FilterChip(
         modifier = modifier,
         selected = selected,
         label = label,
-        leadingIcon = {
-            AnimatedVisibility(visible = selected) {
-                RemixIcon(remixName = Remix.System.check_line, modifier = Modifier.size(16.dp))
+        leadingIcon = if (showLeadingIcon) {
+            {
+                AnimatedVisibility(visible = selected) {
+                    RemixIcon(remixName = Remix.System.check_line, modifier = Modifier.size(16.dp))
+                }
             }
+        } else {
+            null
         },
         onClick = onClick
     )

@@ -144,5 +144,6 @@ val allActionClasses = listOf(
     Action.ReplaceRegex::class,
     Action.TextProcessing::class,
     Action.ExportBackup::class,
+    Action.WebSocketConnect::class,
     Action.NoAction::class,
 )

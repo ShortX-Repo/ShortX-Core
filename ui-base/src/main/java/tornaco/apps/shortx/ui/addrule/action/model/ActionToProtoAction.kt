@@ -130,6 +130,7 @@ import tornaco.apps.shortx.core.proto.action.Vibrate
 import tornaco.apps.shortx.core.proto.action.WaitForIdle
 import tornaco.apps.shortx.core.proto.action.WaitUtilConditionMatch
 import tornaco.apps.shortx.core.proto.action.WakeupScreen
+import tornaco.apps.shortx.core.proto.action.WebSocketConnect
 import tornaco.apps.shortx.core.proto.action.WhileLoop
 import tornaco.apps.shortx.core.proto.action.WriteClipboard
 import tornaco.apps.shortx.core.proto.action.WriteGlobalVar
@@ -1768,6 +1769,17 @@ fun Action.toProtoAction(overrideId: String? = null, overrideNote: String? = nul
                 .setCustomContextDataKey(contextData.toCustomContextDataKey())
                 .setNote(overrideNote ?: note)
                 .setDestDir(destDir)
+                .build()
+        }
+
+        is Action.WebSocketConnect -> {
+            WebSocketConnect.newBuilder()
+                .setId(overrideId ?: id)
+                .setIsDisabled(!isEnabled)
+                .setActionOnError(actionOnError)
+                .setCustomContextDataKey(contextData.toCustomContextDataKey())
+                .setNote(overrideNote ?: note)
+                .setUrl(url)
                 .build()
         }
 

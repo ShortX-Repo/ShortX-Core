@@ -537,6 +537,10 @@ fun imageVectorForAction(action: KClass<out Action>): String {
             Remix.Editor.text
         }
 
+        Action.WebSocketConnect::class -> {
+            Remix.Map.plane_fill
+        }
+
         else -> {
             Remix.Document.file_unknow_fill
         }

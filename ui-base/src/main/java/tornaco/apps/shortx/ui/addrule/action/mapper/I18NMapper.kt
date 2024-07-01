@@ -246,6 +246,11 @@ fun labelAndDescriptionForActionSelector(
         Action.ReplaceRegex::class -> i18N["ui.action.replace.regex"] to null
         Action.TextProcessing::class -> i18N["ui.action.text.processing"] to null
         Action.ExportBackup::class -> i18N["ui.action.backup"] to null
+        Action.WebSocketConnect::class -> i18N.get(
+            "ui.action.websocket",
+            fallback = "WebSocket"
+        ) to null
+
         Action.SwitchCase::class -> i18N.get(
             key = "ui.action.switch.case",
             fallback = "Switch case"
@@ -978,6 +983,14 @@ fun labelLinesForAction(i18N: I18N, action: Action): List<String> {
         is Action.TextProcessing -> listOf(
             i18N["ui.action.text.processing"],
             action.text
+        )
+
+        is Action.WebSocketConnect -> listOf(
+            i18N.get(
+                "ui.action.websocket",
+                fallback = "WebSocket"
+            ),
+            action.url
         )
 
         is Action.ExportBackup -> listOfNotNull(

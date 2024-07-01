@@ -1582,3 +1582,18 @@ message ExportBackup {
   string note = 99;
   string id = 100;
 }
+
+message WebSocketConnect {
+  string url = 1;
+  // Callbacks
+  repeated google.protobuf.Any onOpen = 2;
+  repeated google.protobuf.Any onMessage = 3;
+  repeated google.protobuf.Any onClosed = 4;
+  repeated google.protobuf.Any onFailure = 5;
+
+  CustomContextDataKey customContextDataKey = 96;
+  ActionOnError actionOnError = 97;
+  bool isDisabled = 98;
+  string note = 99;
+  string id = 100;
+}

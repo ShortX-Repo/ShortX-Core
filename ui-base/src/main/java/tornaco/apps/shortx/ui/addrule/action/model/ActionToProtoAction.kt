@@ -1780,6 +1780,10 @@ fun Action.toProtoAction(overrideId: String? = null, overrideNote: String? = nul
                 .setCustomContextDataKey(contextData.toCustomContextDataKey())
                 .setNote(overrideNote ?: note)
                 .setUrl(url)
+                .addAllOnOpen(openActions.map { it.toProtoAction().pack_() })
+                .addAllOnClosed(closeActions.map { it.toProtoAction().pack_() })
+                .addAllOnMessage(messageActions.map { it.toProtoAction().pack_() })
+                .addAllOnFailure(failureActions.map { it.toProtoAction().pack_() })
                 .build()
         }
 

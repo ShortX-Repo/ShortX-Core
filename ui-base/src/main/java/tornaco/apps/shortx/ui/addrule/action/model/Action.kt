@@ -4100,7 +4100,11 @@ sealed interface Action : Parcelable {
         override val contextData: List<ContextData> = emptyList(),
         override val note: String = "",
 
-        val url: String
+        val url: String,
+        val openActions: List<Action> = emptyList(),
+        val closeActions: List<Action> = emptyList(),
+        val messageActions: List<Action> = emptyList(),
+        val failureActions: List<Action> = emptyList(),
     ) : Action {
         override fun clone(
             id: String,

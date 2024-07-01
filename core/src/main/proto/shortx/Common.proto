@@ -403,3 +403,10 @@ enum RingerMode {
   vibrate = 1;
   normal = 2;
 }
+
+enum WebSocketEvent {
+  WS_OPEN = 0;
+  WS_MESSAGE = 1;
+  WS_CLOSED = 2;
+  WS_FAILURE = 3;
+}

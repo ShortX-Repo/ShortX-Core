@@ -1979,7 +1979,11 @@ fun ProtoAny.toAction(shortXManager: ShortXManager): Action? {
                 customContextDataKey = data.customContextDataKey,
                 id = data.id,
                 note = data.note,
-                url = data.url
+                url = data.url,
+                openActions = data.onOpenList.mapNotNull { it.toAction(shortXManager) },
+                closeActions = data.onClosedList.mapNotNull { it.toAction(shortXManager) },
+                messageActions = data.onMessageList.mapNotNull { it.toAction(shortXManager) },
+                failureActions = data.onFailureList.mapNotNull { it.toAction(shortXManager) },
             )
         }
 

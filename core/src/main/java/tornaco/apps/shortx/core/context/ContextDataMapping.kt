@@ -42,6 +42,13 @@ object ContextDataMapping {
     }
 
     @DoNotStrip
+    enum class WebSocket(val description: String) {
+        wsMessage("Received message from WebSocket, if it is MESSAGE event"),
+        wsReason("Reason of the event"),
+        wsEvent("WebSocket event: one of WS_OPEN, WS_MESSAGE, WS_CLOSED, WS_FAILURE")
+    }
+
+    @DoNotStrip
     enum class ActivityStarted(val description: String) {
         pkgName("App package name of the started Activity"),
         userId("App user id the started Activity"),

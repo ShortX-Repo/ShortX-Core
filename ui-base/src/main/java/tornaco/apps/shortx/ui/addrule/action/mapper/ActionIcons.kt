@@ -538,7 +538,7 @@ fun imageVectorForAction(action: KClass<out Action>): String {
         }
 
         Action.WebSocketConnect::class -> {
-            Remix.Map.plane_fill
+            Remix.Map.earth_fill
         }
 
         else -> {
